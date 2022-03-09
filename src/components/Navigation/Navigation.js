@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import "./Navigation.css";
@@ -11,6 +11,7 @@ import InputGroup from "react-bootstrap/InputGroup";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Dropdown from "react-bootstrap/Dropdown";
 import Badge from "react-bootstrap/Badge";
+import { GoogleLogout } from 'react-google-login';
 
 import LogoutModal from "./LogoutModal";
 
@@ -32,17 +33,23 @@ import {
 
 const Navigation = ({ props }) => {
 	const [show, setShow] = useState(false);
+	const [userData, setUserData] = useState();
 
 	const history = useHistory();
 
 	const handleClose = () => setShow(false);
 	const handleShow = () => setShow(true);
 
-	const handleLogout = (e) => {
-		e.preventDefault();
-		handleClose();
-		history.push("/auth/login");
-	};
+	useEffect(() => {
+		const data = JSON.parse(localStorage.getItem('SessionToken'));
+        console.log(data);
+		setUserData(data);
+	},[])
+	// const handleLogout = (e) => {
+	// 	e.preventDefault();
+	// 	handleClose();
+	// 	history.push("/auth/login");
+	// };
 
 	const handleMenuToggle = () => {
 		props.setShowMenu(!props.showMenu);
@@ -154,10 +161,10 @@ const Navigation = ({ props }) => {
 					<NavDropdown
 						title={
 							<>
-								<img src="/img/user.png" alt="Avatar" />
+								<img src={userData?.profileObj?.imageUrl} alt="" />
 								<span className="d-none d-md-inline">
 									{" "}
-									Osahan
+									{userData?.profileObj?.givenName}
 								</span>
 							</>
 						}
@@ -204,7 +211,7 @@ const Navigation = ({ props }) => {
 			<LogoutModal
 				show={show}
 				handleClose={handleClose}
-				handleLogout={handleLogout}
+				// handleLogout={handleLogout}
 			/>
 		</>
 	);

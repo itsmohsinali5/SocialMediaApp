@@ -4,8 +4,22 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import GoogleLogin from 'react-google-login';
+import { useHistory } from 'react-router-dom';
 
 function Login() {
+	const history = useHistory();
+
+    const responseGoogle = (response) => {
+        console.log('Response', response);
+        localStorage.setItem('SessionToken', JSON.stringify(response));
+		if(response.accessToken){
+			history.push('/');
+		} else {
+			history.push('*');
+		}
+    }
+
 	return (
 		<>
 			<Col md={5} className=" p-5 bg-white full-height">
@@ -21,6 +35,14 @@ function Login() {
 							It is a long established fact that a reader <br />{" "}
 							will be distracted by the readable.
 						</p>
+						<GoogleLogin
+							clientId="872770276912-a99aut5agfr1j0fuiur5r40bdh1cfvhu.apps.googleusercontent.com"
+							buttonText="Login with google"
+							onSuccess={responseGoogle}
+							onFailure={responseGoogle}
+							cookiePolicy={'single_host_origin'}
+							scope='profile email https://www.googleapis.com/auth/youtube'
+						/>
 					</div>
 					<Form>
 						<Form.Group>

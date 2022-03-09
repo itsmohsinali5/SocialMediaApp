@@ -1,7 +1,16 @@
 import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
+import { GoogleLogout } from 'react-google-login';
+import { useHistory } from "react-router-dom";
 
 function LogoutModal({ show, handleClose, handleLogout }) {
+	const history = useHistory();
+
+	const logout = () => {
+		handleClose();
+		history.push("/auth/login");
+	}
+
 	return (
 		<>
 			<Modal show={show} onHide={handleClose} centered size="sm">
@@ -16,9 +25,12 @@ function LogoutModal({ show, handleClose, handleLogout }) {
 					<Button variant="secondary" onClick={handleClose}>
 						Cancel
 					</Button>
-					<Button variant="primary" onClick={handleLogout}>
-						Logout
-					</Button>
+					<GoogleLogout
+					clientId="1009753019731-pck47v6b2f0tfh6ah9v52giddnctm4d7.apps.googleusercontent.com"
+					buttonText="Logout"
+					onLogoutSuccess={logout}
+					>
+					</GoogleLogout>
 				</Modal.Footer>
 			</Modal>
 		</>
