@@ -161,7 +161,7 @@ const Navigation = ({ props }) => {
 					<NavDropdown
 						title={
 							<>
-								<img src={userData?.profileObj?.imageUrl} alt="" />
+								<img src={userData?.profileObj?.imageUrl == "" ? "img/v4.png" : userData?.profileObj?.imageUrl} alt="" />
 								<span className="d-none d-md-inline">
 									{" "}
 									{userData?.profileObj?.givenName}
