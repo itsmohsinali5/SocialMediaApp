@@ -4,8 +4,33 @@ import Col from "react-bootstrap/Col";
 import SectionHeader from "../Atomics/SectionHeader/SectionHeader";
 import ChannelCard from "../Atomics/ChannelCard/ChannelCard";
 import Paginate from "../Atomics/Paginate/Paginate";
+import YoutubeApi from "../../API/YoutubeApi";
+import { useEffect, useState } from "react";
 
 const ChannelList = () => {
+    const key = "AIzaSyCRzUvhuzQkfxmFshgWiBsTZmgPuoQ6NqM";
+	const data = JSON.parse(localStorage.getItem('SessionToken'));
+	const token = data.accessToken;
+
+	const subscriptions = async () => {
+		console.log("Token", token);
+        const response = await YoutubeApi.get('/subscriptions', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            params: {
+                mine: true,
+                key: key
+            }
+        })
+        console.log("response", response);
+    }
+
+	useEffect(() => {
+		subscriptions();
+	},[])
+
 	return (
 		<>
 			<div className="video-block section-padding ">

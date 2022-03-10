@@ -11,7 +11,6 @@ import InputGroup from "react-bootstrap/InputGroup";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Dropdown from "react-bootstrap/Dropdown";
 import Badge from "react-bootstrap/Badge";
-import { GoogleLogout } from 'react-google-login';
 
 import LogoutModal from "./LogoutModal";
 
