@@ -25,8 +25,11 @@ function LogoutModal({ show, handleClose, handleLogout }) {
 					<Button variant="secondary" onClick={handleClose}>
 						Cancel
 					</Button>
+					{/* <Button variant="secondary" onClick={handleLogout}>
+						logout
+					</Button> */}
 					<GoogleLogout
-					clientId="1009753019731-pck47v6b2f0tfh6ah9v52giddnctm4d7.apps.googleusercontent.com"
+					clientId="872770276912-e6omt6c2nhgnus4ekvnvu2bh22q3h23q.apps.googleusercontent.com"
 					buttonText="Logout"
 					onLogoutSuccess={logout}
 					>

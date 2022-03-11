@@ -44,11 +44,11 @@ const Navigation = ({ props }) => {
         console.log(data);
 		setUserData(data);
 	},[])
-	// const handleLogout = (e) => {
-	// 	e.preventDefault();
-	// 	handleClose();
-	// 	history.push("/auth/login");
-	// };
+	const handleLogout = (e) => {
+		e.preventDefault();
+		handleClose();
+		history.push("/auth/login");
+	};
 
 	const handleMenuToggle = () => {
 		props.setShowMenu(!props.showMenu);
@@ -210,7 +210,7 @@ const Navigation = ({ props }) => {
 			<LogoutModal
 				show={show}
 				handleClose={handleClose}
-				// handleLogout={handleLogout}
+				handleLogout={handleLogout}
 			/>
 		</>
 	);
