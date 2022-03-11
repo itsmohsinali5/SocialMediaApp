@@ -28,7 +28,7 @@ const Sidebar = ({ props }) => {
 		<>
 			<ul className={sidebarClass}>
 				<NavItem href="/" faIcon={faHome} label="Home" active />
-				<NavItem href="/channels" faIcon={faUsers} label="Channels" />
+				<NavItem href="/channels" faIcon={faUsers} label="Subscriptions" />
 
 				<NavItem
 					href="/single-channel"
