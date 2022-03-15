@@ -23,7 +23,7 @@ const SingleChannel = () => {
         <SingleChannelHero mychanneltitle={channeltitle} />
         <SingleChannelNav />
         <Container fluid>
-          <ChannelVideos info={getInfo} />
+          <ChannelVideos info={channeltitle} />
         </Container>
       </ContentWrapper>
 

@@ -17,9 +17,8 @@ export default function SingleChannelHero({ mychanneltitle }) {
             //     ? "img/v4.png"
             //     : userData?.profileObj?.imageUrl
             // }
-            alt=""
           />
-          {mychanneltitle.map((it) => (
+          {mychanneltitle && mychanneltitle.map((it) => (
             <div className="social hidden-xs">
               <a className="fb mr-1" href="#"></a>
               <a className="tw mr-1" href="#">
@@ -30,7 +29,6 @@ export default function SingleChannelHero({ mychanneltitle }) {
               </a>
             </div>
           ))}
-          ;
         </div>
       </div>
     </>

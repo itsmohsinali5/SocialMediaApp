@@ -12,7 +12,6 @@ import { VerifiedTooltip } from "../Atomics/CustomCheckTooltips/CustomCheckToolt
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
-import { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 
 export default function SingleChannelNav() {
@@ -67,7 +66,7 @@ export default function SingleChannelNav() {
                 onClick={TurnVideosRed}
                 className={colorVideos ? "nav-item active" : "nav-item"}
               >
-                <Link className="nav-link " to="#">
+                <Link className="nav-link " to="/single-channel">
                   Videos
                 </Link>
               </li>

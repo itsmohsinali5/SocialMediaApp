@@ -11,9 +11,25 @@ const ChannelList = () => {
   const [channel, setChannel] = useState([]);
   const [channelID, setChannelID] = useState([]);
 
-    const key = "AIzaSyC9oFDd5Xcu7XMU4-4KbRlH6jcqd1ba0mo";
+    const key = "AIzaSyAWV93zx2qP8owKRWPLaux9XUWQkhFFMkY";
 	const data = JSON.parse(localStorage.getItem('SessionToken'));
 	const token = data.accessToken;
+
+	const channelsDetail = async (id) => {
+		const response2 = await YoutubeApi.get('/channels', {
+			headers: {
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json'
+			},
+			params: {
+				part: 'snippet, statistics',
+				id: id.join(','),
+				key: key
+			}
+		})
+		setChannel(response2.data.items);
+		console.log("response2", response2.data.items);
+	}
 
 	const subscriptions = async () => {
         const response = await YoutubeApi.get('/subscriptions', {
@@ -33,34 +49,9 @@ const ChannelList = () => {
 		const id = response.data.items.map((item) => {
 			return item.snippet.resourceId.channelId;
 		})
-		setChannelID(id);
-		setTimeout(() => {
-			console.log("channelId", channelID);
-		}, 1000);
+		channelsDetail(id);
         console.log("response", response.data.items);
-
-		const response2 = await YoutubeApi.get('/channels', {
-			headers: {
-				'Authorization': `Bearer ${token}`,
-				'Content-Type': 'application/json'
-			},
-			params: {
-				part: 'snippet, statistics',
-				id: channelID.join(','),
-				key: key
-			}
-		})
-		setChannel(response2.data.items);
-		console.log("response2", response2.data.items);
     }
-    if (num >= 1000000) {
-      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
-    }
-    if (num >= 1000) {
-      return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
-    }
-    return num;
-  }
 
 	useEffect(() => {
 		subscriptions();
@@ -88,7 +79,6 @@ const ChannelList = () => {
 						<SectionHeader heading="Subscriptions" />
 					</Col>
 					{subscription.length > 0 && subscription.map((item, i) => {
-						{/* console.log("channelID", item.snippet.resourceId.channelId) */}
 						return (
 							channel && channel.map((it, j) => (
 								item.snippet.title == it.snippet.title ? (

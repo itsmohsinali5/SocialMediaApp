@@ -8,13 +8,14 @@ import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import ReactPlayerCard from "../Atomics/VideoCard/ReactPlayerCard";
 
-const ChannelVideos = ({ info }) => {
+const ChannelVideos = () => {
   const [channeltitle, setChanneltitle] = useState([]);
   let [uploadID, setUploadID] = useState();
   const [videos, SetVideos] = useState([]);
-  const key = "AIzaSyC74dosQTFV6UrAalBSCRpY6y8ZcTTco2s";
+  const key = "AIzaSyAWV93zx2qP8owKRWPLaux9XUWQkhFFMkY";
   const data = JSON.parse(localStorage.getItem("SessionToken"));
   const token = data.accessToken;
+
   const subscriptionChannel = async () => {
     const response = await YoutubeApi.get("/channels", {
       headers: {
@@ -33,6 +34,7 @@ const ChannelVideos = ({ info }) => {
       setUploadID(id.contentDetails.relatedPlaylists.uploads);
     });
   };
+
   const subscriptionPlaylist = async () => {
     const response2 = await YoutubeApi.get("/playlistItems", {
       headers: {
@@ -50,7 +52,6 @@ const ChannelVideos = ({ info }) => {
     SetVideos(response2.data.items);
     setChanneltitle(response2.data.items);
 
-    info(response2.data.items);
   };
   useEffect(() => {
     subscriptionChannel();
@@ -66,7 +67,7 @@ const ChannelVideos = ({ info }) => {
         <div className="video-block section-padding">
           <Row>
             <Col md={12}>
-              <SectionHeader heading="Myvideos" />
+              <SectionHeader heading="My Videos" />
             </Col>
 
             {videos.length > 0 &&

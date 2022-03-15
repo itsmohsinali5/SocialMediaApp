@@ -29,6 +29,7 @@ import { CustomScrollToTop } from "./components/Atomics/ScrollToTop/ScrollToTop"
 import PlaylistList from "./components/Playlist/PlaylistList";
 import Playlist from "./components/Playlist/Playlist";
 import PlaylistVideoPage from "./components/PlaylistVideos/Playlistvideos";
+import ChannelVideos from "./components/SingleChannel/ChannelVideos";
 
 function App() {
 	const [showMenu, setShowMenu] = useState(false);

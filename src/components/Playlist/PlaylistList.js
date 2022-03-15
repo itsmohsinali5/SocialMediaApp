@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 const PlaylistList = () => {
   const [playlist, setPlaylist] = useState([]);
 
-  const key = "AIzaSyC9oFDd5Xcu7XMU4-4KbRlH6jcqd1ba0mo";
+  const key = "AIzaSyAWV93zx2qP8owKRWPLaux9XUWQkhFFMkY";
   const data = JSON.parse(localStorage.getItem("SessionToken"));
   const token = data.accessToken;
 
@@ -41,7 +41,7 @@ const PlaylistList = () => {
       <div className="video-block section-padding ">
         <Row>
           <Col md={12}>
-            <SectionHeader heading="Videos" />
+            <SectionHeader heading="Playlists" />
           </Col>
         
                   
