@@ -1,6 +1,5 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
 import SectionHeader from "../Atomics/SectionHeader/SectionHeader";
 import ChannelCard from "../Atomics/ChannelCard/ChannelCard";
 import Paginate from "../Atomics/Paginate/Paginate";
@@ -8,9 +7,9 @@ import YoutubeApi from "../../API/YoutubeApi";
 import { useEffect, useState } from "react";
 
 const ChannelList = () => {
-	const [subscription, setSubscription] = useState([]);
-	const [channel, setChannel] = useState([]);
-	const [channelID, setChannelID] = useState([]);
+  const [subscription, setSubscription] = useState([]);
+  const [channel, setChannel] = useState([]);
+  const [channelID, setChannelID] = useState([]);
 
     const key = "AIzaSyC9oFDd5Xcu7XMU4-4KbRlH6jcqd1ba0mo";
 	const data = JSON.parse(localStorage.getItem('SessionToken'));
@@ -54,6 +53,14 @@ const ChannelList = () => {
 		setChannel(response2.data.items);
 		console.log("response2", response2.data.items);
     }
+    if (num >= 1000000) {
+      return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
+    }
+    if (num >= 1000) {
+      return (num / 1000).toFixed(1).replace(/\.0$/, "") + "K";
+    }
+    return num;
+  }
 
 	useEffect(() => {
 		subscriptions();

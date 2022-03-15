@@ -6,6 +6,7 @@ import Navbar from "react-bootstrap/Navbar";
 import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
+import { useEffect, useState } from "react";
 
 import { VerifiedTooltip } from "../Atomics/CustomCheckTooltips/CustomCheckTooltips";
 
@@ -30,12 +31,10 @@ export default function SingleChannelNav() {
     // history.push("/playlist")
   };
   const TurnVideosRed = () => {
-
     setColorVideos(true);
     setColorPlaylist(false);
     setColorChannel(false);
     setColorAbout(false);
- 
   };
 
   const TurnChannelRed = () => {
@@ -43,7 +42,6 @@ export default function SingleChannelNav() {
     setColorPlaylist(false);
     setColorVideos(false);
     setColorAbout(false);
- 
   };
 
   const TurnAboutRed = () => {
@@ -73,23 +71,25 @@ export default function SingleChannelNav() {
                   Videos
                 </Link>
               </li>
-                <li
-                  onClick={TurnPlaylistRed}
-                  className={colorPlaylist ? "nav-item active" : "nav-item"}
-                  >
-                    {console.log("color",colorPlaylist)}
-              <Link className="nav-link" to="/playlist">
+              <li
+                onClick={TurnPlaylistRed}
+                className={colorPlaylist ? "nav-item active" : "nav-item"}
+              >
+                {console.log("color", colorPlaylist)}
+                <Link className="nav-link" to="/playlist">
                   Playlists
                 </Link>
-                </li>
+              </li>
               <li
                 onClick={TurnChannelRed}
                 className={colorChannel ? "nav-item active" : "nav-item"}
               >
                 <Link className="nav-link">Channels</Link>
               </li>
-              <li  onClick={TurnAboutRed}
-                className={colorAbout ? "nav-item active" : "nav-item"}>
+              <li
+                onClick={TurnAboutRed}
+                className={colorAbout ? "nav-item active" : "nav-item"}
+              >
                 <Link className="nav-link">About</Link>
               </li>
 
