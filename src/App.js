@@ -26,6 +26,9 @@ import Settings from "./components/Settings/Settings";
 import Account from "./components/Account/Account";
 
 import { CustomScrollToTop } from "./components/Atomics/ScrollToTop/ScrollToTop";
+import PlaylistList from "./components/Playlist/PlaylistList";
+import Playlist from "./components/Playlist/Playlist";
+import PlaylistVideoPage from "./components/PlaylistVideos/Playlistvideos";
 
 function App() {
 	const [showMenu, setShowMenu] = useState(false);
@@ -104,6 +107,12 @@ function Content(props) {
 						</Route>
 						<Route exact path="/account">
 							<Account />
+						</Route>
+						<Route exact path="/playlist">
+							<Playlist />
+						</Route>
+						<Route exact path="/playlistvideos">
+							<PlaylistVideoPage/>
 						</Route>
 
 						<Route path="*" component={FourZeroFour} />

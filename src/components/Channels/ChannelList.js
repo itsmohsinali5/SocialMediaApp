@@ -12,7 +12,7 @@ const ChannelList = () => {
 	const [channel, setChannel] = useState([]);
 	const [channelID, setChannelID] = useState([]);
 
-    const key = "AIzaSyAWV93zx2qP8owKRWPLaux9XUWQkhFFMkY";
+    const key = "AIzaSyC9oFDd5Xcu7XMU4-4KbRlH6jcqd1ba0mo";
 	const data = JSON.parse(localStorage.getItem('SessionToken'));
 	const token = data.accessToken;
 
@@ -27,6 +27,7 @@ const ChannelList = () => {
                 mine: true,
 				maxResults: 10,
                 key: key
+
             }
         })
 		setSubscription(response.data.items);
@@ -54,6 +55,7 @@ const ChannelList = () => {
 	useEffect(() => {
 		subscriptions();
 	},[])
+   
 
 	function nFormatter(num) {
 		if (num >= 1000000000) {
