@@ -77,3 +77,22 @@
 .video-card-body {
 	padding: 12px;
 }
+
+.play-list-count{
+cursor: pointer;
+	position: absolute;
+    top: 0px;
+    width: 120px;
+    height: 100%;
+    right: 0px;
+    background: rgb(0 0 0 / 70%);
+    color: white;
+}
+.play-list-count span{
+	left: 50%;
+    position: absolute;
+    top: 47%;
+}
+.pointer {
+	cursor: pointer;
+}

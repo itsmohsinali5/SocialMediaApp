@@ -11,53 +11,47 @@ const ChannelList = () => {
   const [channel, setChannel] = useState([]);
   const [channelID, setChannelID] = useState([]);
 
-  const key = "AIzaSyC74dosQTFV6UrAalBSCRpY6y8ZcTTco2s";
-  const data = JSON.parse(localStorage.getItem("SessionToken"));
-  const token = data.accessToken;
+    const key = "AIzaSyC9oFDd5Xcu7XMU4-4KbRlH6jcqd1ba0mo";
+	const data = JSON.parse(localStorage.getItem('SessionToken'));
+	const token = data.accessToken;
 
-  const subscriptions = async () => {
-    const response = await YoutubeApi.get("/subscriptions", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      params: {
-        part: "snippet, contentDetails",
-        mine: true,
-        maxResults: 10,
-        key: key,
-      },
-    });
-    console.log(response.data.items);
-    setSubscription(response.data.items);
-    const id = response.data.items.map((item) => {
-      return item.snippet.resourceId.channelId;
-    });
-    setChannelID(id);
-    console.log("response", response.data.items);
+	const subscriptions = async () => {
+        const response = await YoutubeApi.get('/subscriptions', {
+            headers: {
+                'Authorization': `Bearer ${token}`,
+                'Content-Type': 'application/json'
+            },
+            params: {
+				part: 'snippet, contentDetails',
+                mine: true,
+				maxResults: 15,
+                key: key
 
-    const response2 = await YoutubeApi.get("/channels", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      params: {
-        part: "statistics",
-        id: "UCpNzXJ5jpcJojC5mHQvGA8w",
-        key: key,
-      },
-    });
-    setChannel(response2.data.items);
-    console.log("response2", response2.data.items);
-  };
+            }
+        })
+		setSubscription(response.data.items);
+		const id = response.data.items.map((item) => {
+			return item.snippet.resourceId.channelId;
+		})
+		setChannelID(id);
+		setTimeout(() => {
+			console.log("channelId", channelID);
+		}, 1000);
+        console.log("response", response.data.items);
 
-  useEffect(() => {
-    subscriptions();
-  }, []);
-
-  function nFormatter(num) {
-    if (num >= 1000000000) {
-      return (num / 1000000000).toFixed(1).replace(/\.0$/, "") + "G";
+		const response2 = await YoutubeApi.get('/channels', {
+			headers: {
+				'Authorization': `Bearer ${token}`,
+				'Content-Type': 'application/json'
+			},
+			params: {
+				part: 'snippet, statistics',
+				id: channelID.join(','),
+				key: key
+			}
+		})
+		setChannel(response2.data.items);
+		console.log("response2", response2.data.items);
     }
     if (num >= 1000000) {
       return (num / 1000000).toFixed(1).replace(/\.0$/, "") + "M";
@@ -68,36 +62,55 @@ const ChannelList = () => {
     return num;
   }
 
-  return (
-    <>
-      <div className="video-block section-padding ">
-        <Row>
-          <Col md={12}>
-            <SectionHeader heading="Subscriptions" />
-          </Col>
-          {subscription.length > 0 &&
-            subscription.map((item) => {
-              {
-                /* console.log("channelID", item.snippet.resourceId.channelId) */
-              }
-              return channel.map((it) => (
-                <Col xl={3} sm={6} className="mb-3">
-                  <ChannelCard
-                    imgSrc={item.snippet.thumbnails.default.url}
-                    views={nFormatter(it.statistics.viewCount)}
-                    channelName={item.snippet.title}
-                    subscriberCount={nFormatter(it.statistics.subscriberCount)}
-                    isSubscribed
-                  />
-                </Col>
-              ));
-            })}
-        </Row>
-      </div>
+	useEffect(() => {
+		subscriptions();
+	},[])
+   
 
-      <Paginate />
-    </>
-  );
+	function nFormatter(num) {
+		if (num >= 1000000000) {
+		   return (num / 1000000000).toFixed(1).replace(/\.0$/, '') + 'G';
+		}
+		if (num >= 1000000) {
+		   return (num / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+		}
+		if (num >= 1000) {
+		   return (num / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+		}
+		return num;
+   }
+
+	return (
+		<>
+			<div className="video-block section-padding ">
+				<Row>
+					<Col md={12}>
+						<SectionHeader heading="Subscriptions" />
+					</Col>
+					{subscription.length > 0 && subscription.map((item, i) => {
+						{/* console.log("channelID", item.snippet.resourceId.channelId) */}
+						return (
+							channel && channel.map((it, j) => (
+								item.snippet.title == it.snippet.title ? (
+									<Col xl={3} sm={6} className="mb-3">
+										<ChannelCard
+											imgSrc={item.snippet.thumbnails.default.url}
+											views={nFormatter(it.statistics.viewCount)}
+											channelName={item.snippet.title}
+											subscriberCount={nFormatter(it.statistics.subscriberCount)}
+											isSubscribed
+										/>
+									</Col>
+								) : null
+							))
+						)
+					})}
+				</Row>
+			</div>
+
+			<Paginate />
+		</>
+	);
 };
 
 export default ChannelList;
