@@ -36,7 +36,7 @@ function Login() {
 							will be distracted by the readable.
 						</p>
 						<GoogleLogin
-							clientId="872770276912-e6omt6c2nhgnus4ekvnvu2bh22q3h23q.apps.googleusercontent.com"
+							clientId="1003040034096-rs6o9brh3qohqoi7eiaegek5nfecvvhi.apps.googleusercontent.com"
 							buttonText="Login with google"
 							onSuccess={responseGoogle}
 							onFailure={responseGoogle}

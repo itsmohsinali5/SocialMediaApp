@@ -1,4 +1,4 @@
-import "./VideoPage.css";
+import "../VideoPage/VideoPage.css";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -6,11 +6,11 @@ import Col from "react-bootstrap/Col";
 import ThinFooter from "../Footer/ThinFooter";
 import ContentWrapper from "../Atomics/ContentWrapper/ContentWrapper";
 
-import VideoCardList from "./VideoCardList";
+import VideoCardList from "../VideoPage/VideoCardList";
 import SingleVideoRight from "./SingleVideoRight";
 import SingleVideoLeft from "./SingleVideoLeft";
 
-const VideoPage = (props) => {
+const PlaylistVideoPage = (props) => {
 	return (
 		<>
 			<ContentWrapper>
@@ -111,4 +111,4 @@ const VideoPage = (props) => {
 	);
 };
 
-export default VideoPage;
+export default PlaylistVideoPage;
