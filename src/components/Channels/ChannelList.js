@@ -25,7 +25,7 @@ const ChannelList = () => {
             params: {
 				part: 'snippet, contentDetails',
                 mine: true,
-				maxResults: 10,
+				maxResults: 15,
                 key: key
             }
         })
@@ -34,6 +34,9 @@ const ChannelList = () => {
 			return item.snippet.resourceId.channelId;
 		})
 		setChannelID(id);
+		setTimeout(() => {
+			console.log("channelId", channelID);
+		}, 1000);
         console.log("response", response.data.items);
 
 		const response2 = await YoutubeApi.get('/channels', {
@@ -42,8 +45,8 @@ const ChannelList = () => {
 				'Content-Type': 'application/json'
 			},
 			params: {
-				part: 'statistics',
-				id: "UCpNzXJ5jpcJojC5mHQvGA8w",
+				part: 'snippet, statistics',
+				id: channelID.join(','),
 				key: key
 			}
 		})
@@ -75,19 +78,21 @@ const ChannelList = () => {
 					<Col md={12}>
 						<SectionHeader heading="Subscriptions" />
 					</Col>
-					{subscription.length > 0 && subscription.map((item) => {
+					{subscription.length > 0 && subscription.map((item, i) => {
 						{/* console.log("channelID", item.snippet.resourceId.channelId) */}
 						return (
-							channel.map((it) => (
-							<Col xl={3} sm={6} className="mb-3">
-								<ChannelCard
-									imgSrc={item.snippet.thumbnails.default.url}
-									views={nFormatter(it.statistics.viewCount)}
-									channelName={item.snippet.title}
-									subscriberCount={nFormatter(it.statistics.subscriberCount)}
-									isSubscribed
-								/>
-							</Col>
+							channel && channel.map((it, j) => (
+								item.snippet.title == it.snippet.title ? (
+									<Col xl={3} sm={6} className="mb-3">
+										<ChannelCard
+											imgSrc={item.snippet.thumbnails.default.url}
+											views={nFormatter(it.statistics.viewCount)}
+											channelName={item.snippet.title}
+											subscriberCount={nFormatter(it.statistics.subscriberCount)}
+											isSubscribed
+										/>
+									</Col>
+								) : null
 							))
 						)
 					})}
