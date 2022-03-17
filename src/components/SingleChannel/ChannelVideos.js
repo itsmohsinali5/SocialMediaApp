@@ -23,7 +23,7 @@ const ChannelVideos = () => {
       },
       params: {
         part: "snippet,contentDetails",
-        playlistId: id.join(''),
+        playlistId: id.join(""),
         key: key,
       },
     });

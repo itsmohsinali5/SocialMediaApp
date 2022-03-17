@@ -43,27 +43,18 @@ const PlaylistList = () => {
           <Col md={12}>
             <SectionHeader heading="Playlists" />
           </Col>
-        
-                  
+
           {playlist.length > 0 &&
             playlist.map((item) => (
-                         
-                  <Col xl={3} sm={6} className="mb-3">
-                 <PlayList
-                
-                playlistThumbnail={item.snippet.thumbnails.default.url}
+              <Col xl={3} sm={6} className="mb-3">
+                <PlayList
+                  playlistThumbnail={item.snippet.thumbnails.default.url}
                   playlistTitle={item.snippet.title}
                   videoCount={item.contentDetails.itemCount}
                   playlistId={item.id}
-                 
-                
-                  />
+                />
               </Col>
-               
-
             ))}
-        
-          
         </Row>
       </div>
       <Paginate />

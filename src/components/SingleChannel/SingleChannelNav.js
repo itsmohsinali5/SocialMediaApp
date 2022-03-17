@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Navbar from "react-bootstrap/Navbar";
@@ -7,9 +6,7 @@ import Button from "react-bootstrap/Button";
 import Form from "react-bootstrap/Form";
 import FormControl from "react-bootstrap/FormControl";
 import { useEffect, useState } from "react";
-
 import { VerifiedTooltip } from "../Atomics/CustomCheckTooltips/CustomCheckTooltips";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
@@ -109,7 +106,9 @@ export default function SingleChannelNav({ channelName }) {
                 onClick={TurnChannelRed}
                 className={colorChannel ? "nav-item active" : "nav-item"}
               >
-                <Link className="nav-link">Channels</Link>
+                <Link className="nav-link" to="/channelsection">
+                  Channels
+                </Link>
               </li>
               <li
                 onClick={TurnAboutRed}

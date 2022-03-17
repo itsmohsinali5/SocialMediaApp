@@ -16,204 +16,182 @@ import LogoutModal from "./LogoutModal";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
-	faBars,
-	faPlusCircle,
-	faHeadphonesAlt,
-	faStar,
-	faEdit,
-	faSignOutAlt,
-	faUserCircle,
-	faVideo,
-	faCog,
-	faSearch,
-	faBell,
-	faEnvelope,
+  faBars,
+  faPlusCircle,
+  faHeadphonesAlt,
+  faStar,
+  faEdit,
+  faSignOutAlt,
+  faUserCircle,
+  faVideo,
+  faCog,
+  faSearch,
+  faBell,
+  faEnvelope,
 } from "@fortawesome/free-solid-svg-icons";
 
 const Navigation = ({ props }) => {
-	const [show, setShow] = useState(false);
-	const [userData, setUserData] = useState();
+  const [show, setShow] = useState(false);
+  const [userData, setUserData] = useState();
 
-	const history = useHistory();
+  const history = useHistory();
 
-	const handleClose = () => setShow(false);
-	const handleShow = () => setShow(true);
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
-	useEffect(() => {
-		const data = JSON.parse(localStorage.getItem('SessionToken'));
-        console.log(data);
-		setUserData(data);
-	},[])
-	const handleLogout = (e) => {
-		e.preventDefault();
-		handleClose();
-		history.push("/auth/login");
-	};
+  useEffect(() => {
+    const data = JSON.parse(localStorage.getItem("SessionToken"));
+    console.log(data);
+    setUserData(data);
+  }, []);
+  const handleLogout = (e) => {
+    e.preventDefault();
+    handleClose();
+    history.push("/auth/login");
+  };
 
-	const handleMenuToggle = () => {
-		props.setShowMenu(!props.showMenu);
-	};
+  const handleMenuToggle = () => {
+    props.setShowMenu(!props.showMenu);
+  };
 
-	return (
-		<>
-			<Navbar bg="white" sticky="top" className="osahan-nav">
-				&nbsp;&nbsp;
-				<Button
-					variant="link"
-					size="sm"
-					className="order-1 order-sm-0 text-secondary"
-					id="sidebarToggle"
-					onClick={handleMenuToggle}
-				>
-					<FontAwesomeIcon icon={faBars} />
-					<i className="fas fa-star"></i>
-				</Button>
-				&nbsp;&nbsp;
-				<Navbar.Brand className="mr-1">
-					<Link to="/">
-						<img className="img-fluid" src="/img/logo.png" alt="" />
-					</Link>
-				</Navbar.Brand>
-				{/* Navbar Search*/}
-				<Form
-					inline
-					className="d-none d-md-inline ml-auto  my-2 my-md-0 osahan-navbar-search"
-				>
-					<InputGroup>
-						<FormControl
-							type="text"
-							placeholder="Search for..."
-							className=""
-						/>
-						<InputGroup.Append>
-							<Button variant="light">
-								<FontAwesomeIcon icon={faSearch} />
-							</Button>
-						</InputGroup.Append>
-					</InputGroup>
-				</Form>
-				{/*Navbar*/}
-				<ul className="navbar-nav ml-auto ml-md-0 osahan-right-navbar">
-					<li className="nav-item mx-1">
-						<Link to="/upload" className="nav-link">
-							<FontAwesomeIcon icon={faPlusCircle} fixedWidth />{" "}
-							<span className="d-none d-md-inline">
-								Upload Video
-							</span>
-						</Link>
-					</li>
+  return (
+    <>
+      <Navbar bg="white" sticky="top" className="osahan-nav">
+        &nbsp;&nbsp;
+        <Button
+          variant="link"
+          size="sm"
+          className="order-1 order-sm-0 text-secondary"
+          id="sidebarToggle"
+          onClick={handleMenuToggle}
+        >
+          <FontAwesomeIcon icon={faBars} />
+          <i className="fas fa-star"></i>
+        </Button>
+        &nbsp;&nbsp;
+        <Navbar.Brand className="mr-1">
+          <Link to="/">
+            <img className="img-fluid" src="/img/logo.png" alt="" />
+          </Link>
+        </Navbar.Brand>
+        {/* Navbar Search*/}
+        <Form
+          inline
+          className="d-none d-md-inline ml-auto  my-2 my-md-0 osahan-navbar-search"
+        >
+          <InputGroup>
+            <FormControl type="text" placeholder="Search for..." className="" />
+            <InputGroup.Append>
+              <Button variant="light">
+                <FontAwesomeIcon icon={faSearch} />
+              </Button>
+            </InputGroup.Append>
+          </InputGroup>
+        </Form>
+        {/*Navbar*/}
+        <ul className="navbar-nav ml-auto ml-md-0 osahan-right-navbar">
+          <li className="nav-item mx-1">
+            <Link to="/upload" className="nav-link">
+              <FontAwesomeIcon icon={faPlusCircle} fixedWidth />{" "}
+              <span className="d-none d-md-inline">Upload Video</span>
+            </Link>
+          </li>
 
-					<NavDropdown
-						title={
-							<>
-								<FontAwesomeIcon icon={faBell} fixedWidth />
-								<Badge variant="danger">9+</Badge>
-							</>
-						}
-						id=""
-						className="mx-1 no-arrow"
-					>
-						<NavDropdown.Item href="#">
-							<FontAwesomeIcon icon={faEdit} fixedWidth /> Action
-						</NavDropdown.Item>
-						<NavDropdown.Item href="#">
-							<FontAwesomeIcon
-								icon={faHeadphonesAlt}
-								fixedWidth
-							/>{" "}
-							Another Action
-						</NavDropdown.Item>
-						<Dropdown.Divider />
-						<NavDropdown.Item href="#">
-							<FontAwesomeIcon icon={faStar} fixedWidth />{" "}
-							Something else here
-						</NavDropdown.Item>
-					</NavDropdown>
+          <NavDropdown
+            title={
+              <>
+                <FontAwesomeIcon icon={faBell} fixedWidth />
+                <Badge variant="danger">9+</Badge>
+              </>
+            }
+            id=""
+            className="mx-1 no-arrow"
+          >
+            <NavDropdown.Item href="#">
+              <FontAwesomeIcon icon={faEdit} fixedWidth /> Action
+            </NavDropdown.Item>
+            <NavDropdown.Item href="#">
+              <FontAwesomeIcon icon={faHeadphonesAlt} fixedWidth /> Another
+              Action
+            </NavDropdown.Item>
+            <Dropdown.Divider />
+            <NavDropdown.Item href="#">
+              <FontAwesomeIcon icon={faStar} fixedWidth /> Something else here
+            </NavDropdown.Item>
+          </NavDropdown>
 
-					<NavDropdown
-						title={
-							<>
-								<FontAwesomeIcon icon={faEnvelope} fixedWidth />
-								<Badge variant="success">7</Badge>
-							</>
-						}
-						id=""
-						className="mx-1 no-arrow"
-					>
-						<NavDropdown.Item href="#">
-							<FontAwesomeIcon icon={faEdit} fixedWidth /> Action
-						</NavDropdown.Item>
-						<NavDropdown.Item href="#">
-							<FontAwesomeIcon
-								icon={faHeadphonesAlt}
-								fixedWidth
-							/>{" "}
-							Another Action
-						</NavDropdown.Item>
-						<Dropdown.Divider />
-						<NavDropdown.Item href="#">
-							<FontAwesomeIcon icon={faStar} fixedWidth />{" "}
-							Something else here
-						</NavDropdown.Item>
-					</NavDropdown>
+          <NavDropdown
+            title={
+              <>
+                <FontAwesomeIcon icon={faEnvelope} fixedWidth />
+                <Badge variant="success">7</Badge>
+              </>
+            }
+            id=""
+            className="mx-1 no-arrow"
+          >
+            <NavDropdown.Item href="#">
+              <FontAwesomeIcon icon={faEdit} fixedWidth /> Action
+            </NavDropdown.Item>
+            <NavDropdown.Item href="#">
+              <FontAwesomeIcon icon={faHeadphonesAlt} fixedWidth /> Another
+              Action
+            </NavDropdown.Item>
+            <Dropdown.Divider />
+            <NavDropdown.Item href="#">
+              <FontAwesomeIcon icon={faStar} fixedWidth /> Something else here
+            </NavDropdown.Item>
+          </NavDropdown>
 
-					<NavDropdown
-						title={
-							<>
-								<img src={userData?.profileObj?.imageUrl == "" ? "img/v4.png" : userData?.profileObj?.imageUrl} alt="" />
-								<span className="d-none d-md-inline">
-									{" "}
-									{userData?.profileObj?.givenName}
-								</span>
-							</>
-						}
-						id=""
-						className="no-arrow osahan-right-navbar-user user-dropdown-link"
-					>
-						<Link
-							to="/account"
-							className="dropdown-item"
-							rolw="button"
-						>
-							<FontAwesomeIcon icon={faUserCircle} fixedWidth />{" "}
-							My Account
-						</Link>
-						<Link
-							to="/subscriptions"
-							className="dropdown-item"
-							rolw="button"
-						>
-							<FontAwesomeIcon icon={faVideo} fixedWidth />{" "}
-							Subscriptions
-						</Link>
-						<Link
-							to="/settings"
-							className="dropdown-item"
-							rolw="button"
-						>
-							<FontAwesomeIcon icon={faCog} fixedWidth /> Settings
-						</Link>
-						<Dropdown.Divider />
-						<Link
-							to="#"
-							onClick={handleShow}
-							className="dropdown-item"
-							rolw="button"
-						>
-							<FontAwesomeIcon icon={faSignOutAlt} fixedWidth />{" "}
-							Log out
-						</Link>
-					</NavDropdown>
-				</ul>
-			</Navbar>
+          <NavDropdown
+            title={
+              <>
+                <img
+                  src={
+                    userData?.profileObj?.imageUrl == ""
+                      ? "img/v4.png"
+                      : userData?.profileObj?.imageUrl
+                  }
+                  alt=""
+                />
+                <span className="d-none d-md-inline">
+                  {" "}
+                  {userData?.profileObj?.givenName}
+                </span>
+              </>
+            }
+            id=""
+            className="no-arrow osahan-right-navbar-user user-dropdown-link"
+          >
+            <Link to="/account" className="dropdown-item" rolw="button">
+              <FontAwesomeIcon icon={faUserCircle} fixedWidth /> My Account
+            </Link>
+            <Link to="/subscriptions" className="dropdown-item" rolw="button">
+              <FontAwesomeIcon icon={faVideo} fixedWidth /> Subscriptions
+            </Link>
+            <Link to="/settings" className="dropdown-item" rolw="button">
+              <FontAwesomeIcon icon={faCog} fixedWidth /> Settings
+            </Link>
+            <Dropdown.Divider />
+            <Link
+              to="#"
+              onClick={handleShow}
+              className="dropdown-item"
+              rolw="button"
+            >
+              <FontAwesomeIcon icon={faSignOutAlt} fixedWidth /> Log out
+            </Link>
+          </NavDropdown>
+        </ul>
+      </Navbar>
 
-			<LogoutModal
-				show={show}
-				handleClose={handleClose}
-				handleLogout={handleLogout}
-			/>
-		</>
-	);
+      <LogoutModal
+        show={show}
+        handleClose={handleClose}
+        handleLogout={handleLogout}
+      />
+    </>
+  );
 };
 
 export default Navigation;
