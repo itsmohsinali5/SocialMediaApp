@@ -7,6 +7,9 @@ import YoutubeApi from "../../API/YoutubeApi";
 import { useEffect, useState } from "react";
 import ReactPaginate from "react-paginate";
 import "./channelStyle.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+
 const ChannelList = () => {
   const [subscription, setSubscription] = useState([]);
   const [channel, setChannel] = useState([]);
@@ -129,8 +132,9 @@ const ChannelList = () => {
                 subscriptions(prePage);
               }}
             >
+              
               <a className="page-link" href="#">
-                Previous
+              <FontAwesomeIcon icon={faArrowLeft} /> Previous
               </a>
             </li>
           )}
@@ -142,7 +146,7 @@ const ChannelList = () => {
               }}
             >
               <a className="page-link" href="#">
-                Next
+                Next <FontAwesomeIcon icon={faArrowRight} />
               </a>
             </li>
           )}

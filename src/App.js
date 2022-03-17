@@ -10,7 +10,6 @@ import Homepage from "./components/Homepage/Homepage";
 import Channels from "./components/Channels/Channels";
 import SingleChannel from "./components/SingleChannel/SingleChannel";
 import Channelsec from "./components/ChannelsSec/Channelsec";
-import Channelseclist from "./components/ChannelsSec/Channelseclist";
 import VideoPage from "./components/VideoPage/VideoPage";
 import UploadVideo from "./components/UploadVideo/UploadVideo";
 import History from "./components/History/History";
@@ -118,6 +117,9 @@ function Content(props) {
             </Route>
             <Route exact path="/channelsection">
               <Channelsec />
+            </Route>
+            <Route exact path="/about">
+              <About />
             </Route>
             <Route path="*" component={FourZeroFour} />
           </Switch>

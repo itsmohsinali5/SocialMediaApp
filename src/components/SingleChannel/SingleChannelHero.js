@@ -39,13 +39,13 @@ export default function SingleChannelHero({ mychannelInfo }) {
               width="100%"
               src={item.brandingSettings?.image?.bannerExternalUrl}
             />
-            {/* <div className="channel-profile">
+            <div className="channel-profile">
               <img
                 className="channel-profile-img"
                 alt=""
                 src={item.snippet.thumbnails.default.url}
               />
-              <div className="social hidden-xs">
+              {/* <div className="social hidden-xs">
                 <a className="fb mr-1" href="#">
                   Facebook
                 </a>
@@ -53,8 +53,8 @@ export default function SingleChannelHero({ mychannelInfo }) {
                 <a className="gp" href="#">
                   Google
                 </a>
-              </div>
-            </div> */}
+              </div> */}
+            </div>
           </div>
         ))}
     </>
