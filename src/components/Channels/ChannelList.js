@@ -1,6 +1,5 @@
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
-
 import SectionHeader from "../Atomics/SectionHeader/SectionHeader";
 import ChannelCard from "../Atomics/ChannelCard/ChannelCard";
 import Paginate from "../Atomics/Paginate/Paginate";
@@ -15,7 +14,7 @@ const ChannelList = () => {
   const [nextPage, setNextPage] = useState("");
   const [prePage, setPrePage] = useState("");
 
-    const key = "AIzaSyC9oFDd5Xcu7XMU4-4KbRlH6jcqd1ba0mo";
+    const key = process.env.GOOGLE_API_KEY;
 	const data = JSON.parse(localStorage.getItem('SessionToken'));
 	const token = data.accessToken;
 
@@ -63,22 +62,8 @@ const ChannelList = () => {
 		const id = response.data.items.map((item) => {
 			return item.snippet.resourceId.channelId;
 		})
-		setChannelID(id);
+		channelsDetail(id);
         console.log("response", response.data.items);
-
-		const response2 = await YoutubeApi.get('/channels', {
-			headers: {
-				'Authorization': `Bearer ${token}`,
-				'Content-Type': 'application/json'
-			},
-			params: {
-				part: 'statistics',
-				id: "UCpNzXJ5jpcJojC5mHQvGA8w",
-				key: key
-			}
-		})
-		setChannel(response2.data.items);
-		console.log("response2", response2.data.items);
     }
 
 	useEffect(() => {
@@ -106,19 +91,20 @@ const ChannelList = () => {
 					<Col md={12}>
 						<SectionHeader heading="Subscriptions" />
 					</Col>
-					{subscription.length > 0 && subscription.map((item) => {
-						{/* console.log("channelID", item.snippet.resourceId.channelId) */}
+					{subscription.length > 0 && subscription.map((item, i) => {
 						return (
-							channel.map((it) => (
-							<Col xl={3} sm={6} className="mb-3">
-								<ChannelCard
-									imgSrc={item.snippet.thumbnails.default.url}
-									views={nFormatter(it.statistics.viewCount)}
-									channelName={item.snippet.title}
-									subscriberCount={nFormatter(it.statistics.subscriberCount)}
-									isSubscribed
-								/>
-							</Col>
+							channel && channel.map((it, j) => (
+								item.snippet.title == it.snippet.title ? (
+									<Col xl={3} sm={6} className="mb-3">
+										<ChannelCard
+											imgSrc={item.snippet.thumbnails.default.url}
+											views={nFormatter(it.statistics.viewCount)}
+											channelName={item.snippet.title}
+											subscriberCount={nFormatter(it.statistics.subscriberCount)}
+											isSubscribed
+										/>
+									</Col>
+								) : null
 							))
 						)
 					})}

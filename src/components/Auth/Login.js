@@ -4,21 +4,21 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
-import GoogleLogin from 'react-google-login';
-import { useHistory } from 'react-router-dom';
+import GoogleLogin from "react-google-login";
+import { useHistory } from "react-router-dom";
 
 function Login() {
-	const history = useHistory();
+  const history = useHistory();
 
-    const responseGoogle = (response) => {
-        console.log('Response', response);
-        localStorage.setItem('SessionToken', JSON.stringify(response));
-		if(response.accessToken){
-			history.push('/');
-		} else {
-			history.push('*');
-		}
+  const responseGoogle = (response) => {
+    console.log("Response", response);
+    localStorage.setItem("SessionToken", JSON.stringify(response));
+    if (response.accessToken) {
+      history.push("/");
+    } else {
+      history.push("*");
     }
+  };
 
   return (
     <>
@@ -32,7 +32,7 @@ function Login() {
               distracted by the readable.
             </p>
             <GoogleLogin
-              clientId="1003040034096-rs6o9brh3qohqoi7eiaegek5nfecvvhi.apps.googleusercontent.com"
+              clientId="872770276912-e6omt6c2nhgnus4ekvnvu2bh22q3h23q.apps.googleusercontent.com"
               buttonText="Login with google"
               onSuccess={responseGoogle}
               onFailure={responseGoogle}
@@ -46,38 +46,30 @@ function Login() {
               <Form.Control type="text" placeholder="Enter mobile number" />
             </Form.Group>
 
-						<Form.Group>
-							<Form.Label>Password</Form.Label>
-							<Form.Control
-								type="password"
-								placeholder="Password"
-							/>
-						</Form.Group>
+            <Form.Group>
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" />
+            </Form.Group>
 
-						<div className="mt-4">
-							<Row>
-								<Col>
-									<Button
-										variant="outline-primary"
-										size="lg"
-										block
-									>
-										Sign In
-									</Button>
-								</Col>
-							</Row>
-						</div>
-					</Form>
+            <div className="mt-4">
+              <Row>
+                <Col>
+                  <Button variant="outline-primary" size="lg" block>
+                    Sign In
+                  </Button>
+                </Col>
+              </Row>
+            </div>
+          </Form>
 
-					<div className="text-center mt-5">
-						<p className="light-gray">
-							Don’t have an account?{" "}
-							<Link to="/auth/register">Sign Up</Link>
-						</p>
-					</div>
-				</div>
-			</Col>
-		</>
-	);
+          <div className="text-center mt-5">
+            <p className="light-gray">
+              Don’t have an account? <Link to="/auth/register">Sign Up</Link>
+            </p>
+          </div>
+        </div>
+      </Col>
+    </>
+  );
 }
 export default Login;

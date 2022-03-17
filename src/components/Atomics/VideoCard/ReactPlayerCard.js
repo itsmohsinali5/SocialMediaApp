@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlayCircle, faCalendarAlt } from "@fortawesome/free-solid-svg-icons";
 import ReactPlayer from "react-player";
 import { useHistory } from "react-router-dom";
+import Moment from 'react-moment';
 
 function ReactPlayerCard({
   videoUrl,
@@ -39,8 +40,8 @@ function ReactPlayerCard({
             {channelTitle} <VerifiedTooltip />
           </div>
           <div className="video-view">
-            {viewCount} views &nbsp; &nbsp;
-            <FontAwesomeIcon icon={faCalendarAlt} /> {publishedAt}
+            {viewCount} &nbsp;
+            <FontAwesomeIcon icon={faCalendarAlt} /> <Moment fromNow date={publishedAt} />
           </div>
         </div>
       </div>
