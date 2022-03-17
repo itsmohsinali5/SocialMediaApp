@@ -11,7 +11,7 @@ const ChannelList = () => {
   const [channel, setChannel] = useState([]);
   const [channelID, setChannelID] = useState([]);
 
-    const key = "AIzaSyAWV93zx2qP8owKRWPLaux9XUWQkhFFMkY";
+    const key = process.env.GOOGLE_API_KEY;
 	const data = JSON.parse(localStorage.getItem('SessionToken'));
 	const token = data.accessToken;
 

@@ -13,7 +13,7 @@ import ReactPlayerCard from "../Atomics/VideoCard/ReactPlayerCard";
 export default function FeaturedVideos() {
   const [videos, setVideos] = useState([]);
 
-  const key = "AIzaSyAWV93zx2qP8owKRWPLaux9XUWQkhFFMkY";
+  const key = process.env.REACT_APP_KEY;
   const data = JSON.parse(localStorage.getItem("SessionToken"));
   const token = data.accessToken;
 
@@ -27,7 +27,7 @@ export default function FeaturedVideos() {
         part: "snippet, contentDetails, statistics",
         chart: "mostPopular",
         regionCode: "PK",
-        maxResults: 4,
+        maxResults: 8,
         key: key,
       },
     });
@@ -68,8 +68,8 @@ export default function FeaturedVideos() {
                     videoUrl={`https://www.youtube.com/watch?v=${item.id}`}
                     videoTitle={item.snippet.title}
                     channelTitle={item.snippet.channelTitle}
-                    viewCount={nFormatter(item.statistics.viewCount)}
-                    publishedAt={item.snippet.publishedAt}
+                    viewCount={`${nFormatter(item.statistics.viewCount)} views`}
+                    publishedAt={`${item.snippet.publishedAt}`}
                   />
                 </Col>
               );

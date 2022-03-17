@@ -8,6 +8,7 @@ import PopularChannels from "./PopularChannels";
 
 import FatFooter from "../Footer/FatFooter";
 import ContentWrapper from "../Atomics/ContentWrapper/ContentWrapper";
+import FeaturedVideos from "../Channels/FeaturedVideos";
 
 const Homepage = () => {
 	return (
@@ -17,7 +18,8 @@ const Homepage = () => {
 					<TopMobileSearch />
 					<TopCategory />
 					<hr />
-					<VideoBlock />
+					{/* <VideoBlock /> */}
+					<FeaturedVideos />
 					<hr className="mt-0" />
 					<PopularChannels />
 				</Container>

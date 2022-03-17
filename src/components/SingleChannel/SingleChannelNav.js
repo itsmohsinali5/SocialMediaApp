@@ -13,9 +13,35 @@ import { VerifiedTooltip } from "../Atomics/CustomCheckTooltips/CustomCheckToolt
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
+import YoutubeApi from "../../API/YoutubeApi";
 
-export default function SingleChannelNav() {
-  let history = useHistory();
+export default function SingleChannelNav({ channelName }) {
+
+  const [channelsDetail, setChannelsDetail] = useState([]);
+
+  const key = process.env.GOOGLE_API_KEY;
+  const data = JSON.parse(localStorage.getItem("SessionToken"));
+  const token = data.accessToken;
+
+  const channelsInfo = async () => {
+    const response = await YoutubeApi.get("/channels", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      params: {
+        part: "snippet,statistics,brandingSettings",
+        mine: true,
+        key: key,
+      },
+    });
+    setChannelsDetail(response.data.items);
+    console.log("response2", response.data.items);
+  };
+
+  useEffect(() => {
+    channelsInfo();
+  }, []);
 
   const [colorVideos, setColorVideos] = useState(true);
   const [colorPlaylist, setColorPlaylist] = useState(false);
@@ -27,7 +53,6 @@ export default function SingleChannelNav() {
     setColorVideos(false);
     setColorChannel(false);
     setColorAbout(false);
-    // history.push("/playlist")
   };
   const TurnVideosRed = () => {
     setColorVideos(true);
@@ -54,10 +79,12 @@ export default function SingleChannelNav() {
     <>
       <div className="single-channel-nav">
         <Navbar expand="lg">
+        {channelsDetail.length > 0 &&
+          channelsDetail.map((item) => (
           <Navbar.Brand className="channel-brand">
-            Osahan Channel <VerifiedTooltip />
+            {item.snippet.title} <VerifiedTooltip />
           </Navbar.Brand>
-
+        ))}
           <Navbar.Toggle aria-controls="navbarSupportedContent" />
 
           <Navbar.Collapse id="navbarSupportedContent">
@@ -74,7 +101,6 @@ export default function SingleChannelNav() {
                 onClick={TurnPlaylistRed}
                 className={colorPlaylist ? "nav-item active" : "nav-item"}
               >
-                {console.log("color", colorPlaylist)}
                 <Link className="nav-link" to="/playlist">
                   Playlists
                 </Link>
@@ -89,7 +115,7 @@ export default function SingleChannelNav() {
                 onClick={TurnAboutRed}
                 className={colorAbout ? "nav-item active" : "nav-item"}
               >
-                <Link className="nav-link">About</Link>
+                <Link className="nav-link" to="/about">About</Link>
               </li>
 
               {/* <NavDropdown title="Donate" id="basic-nav-dropdown">

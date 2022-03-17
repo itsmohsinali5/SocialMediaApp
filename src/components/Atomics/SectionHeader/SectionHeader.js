@@ -82,7 +82,7 @@ function HeadingWrapper({ children, heading }) {
 		<>
 			<div className="main-title">
 				{children ? children : ""}
-				<h6>{heading}</h6>
+				<h6 style={{ fontWeight: 'bold' }}>{heading}</h6>
 			</div>
 		</>
 	);

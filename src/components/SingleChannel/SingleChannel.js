@@ -1,29 +1,22 @@
 import "./SingleChannel.css";
 import Container from "react-bootstrap/Container";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import ThinFooter from "../Footer/ThinFooter";
 import ContentWrapper from "../Atomics/ContentWrapper/ContentWrapper";
 import SingleChannelHero from "./SingleChannelHero";
 import SingleChannelNav from "./SingleChannelNav";
 import ChannelVideos from "./ChannelVideos";
+import YoutubeApi from "../../API/YoutubeApi";
 
 const SingleChannel = () => {
-  // const [picture, setPicture] = useState("");
-
-  const getInfo = (data) => {
-    console.log("channel", data);
-    setChanneltitle(data);
-  };
-
-  const [channeltitle, setChanneltitle] = useState([]);
 
   return (
     <>
       <ContentWrapper className="single-channel-page">
-        <SingleChannelHero mychanneltitle={channeltitle} />
+        <SingleChannelHero />
         <SingleChannelNav />
         <Container fluid>
-          <ChannelVideos info={channeltitle} />
+          <ChannelVideos />
         </Container>
       </ContentWrapper>
 

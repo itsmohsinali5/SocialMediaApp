@@ -9,12 +9,27 @@ import ReactPlayer from "react-player";
 import ReactPlayerCard from "../Atomics/VideoCard/ReactPlayerCard";
 
 const ChannelVideos = () => {
-  const [channeltitle, setChanneltitle] = useState([]);
   let [uploadID, setUploadID] = useState();
   const [videos, SetVideos] = useState([]);
-  const key = "AIzaSyAWV93zx2qP8owKRWPLaux9XUWQkhFFMkY";
+  const key = process.env.GOOGLE_API_KEY;
   const data = JSON.parse(localStorage.getItem("SessionToken"));
   const token = data.accessToken;
+
+  const subscriptionPlaylist = async (id) => {
+    const response2 = await YoutubeApi.get("/playlistItems", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      params: {
+        part: "snippet,contentDetails",
+        playlistId: id.join(''),
+        key: key,
+      },
+    });
+    console.log("response", response2);
+    SetVideos(response2.data.items);
+  };
 
   const subscriptionChannel = async () => {
     const response = await YoutubeApi.get("/channels", {
@@ -31,35 +46,14 @@ const ChannelVideos = () => {
     });
     console.log("res1", response.data.items);
     const id = response.data.items.map((id) => {
-      setUploadID(id.contentDetails.relatedPlaylists.uploads);
+      return id.contentDetails.relatedPlaylists.uploads;
     });
+    subscriptionPlaylist(id);
   };
 
-  const subscriptionPlaylist = async () => {
-    const response2 = await YoutubeApi.get("/playlistItems", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      params: {
-        part: "snippet,contentDetails",
-        playlistId: uploadID,
-        key: key,
-      },
-    });
-
-    console.log("response", response2);
-    SetVideos(response2.data.items);
-    setChanneltitle(response2.data.items);
-
-  };
   useEffect(() => {
     subscriptionChannel();
   }, []);
-  useEffect(() => {
-    console.log(uploadID);
-    subscriptionPlaylist();
-  }, [uploadID]);
 
   return (
     <>
@@ -77,8 +71,8 @@ const ChannelVideos = () => {
                     <ReactPlayerCard
                       videoUrl={`https://www.youtube.com/watch?v=${item.contentDetails.videoId}`}
                       videoTitle={item.snippet.title}
-                      channelTitle={item.snippet.publishedAt}
-                      publishedAt={item.contentDetails.PublishedAt}
+                      channelTitle={item.snippet.channelTitle}
+                      publishedAt={item.snippet.publishedAt}
                     />
                   </Col>
                 );

@@ -11,7 +11,7 @@ import { Link } from "react-router-dom";
 const PlaylistList = () => {
   const [playlist, setPlaylist] = useState([]);
 
-  const key = "AIzaSyAWV93zx2qP8owKRWPLaux9XUWQkhFFMkY";
+  const key = process.env.GOOGLE_API_KEY;
   const data = JSON.parse(localStorage.getItem("SessionToken"));
   const token = data.accessToken;
 
