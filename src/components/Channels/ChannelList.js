@@ -5,11 +5,14 @@ import ChannelCard from "../Atomics/ChannelCard/ChannelCard";
 import Paginate from "../Atomics/Paginate/Paginate";
 import YoutubeApi from "../../API/YoutubeApi";
 import { useEffect, useState } from "react";
-
+import ReactPaginate from "react-paginate";
+import "./channelStyle.css"
 const ChannelList = () => {
   const [subscription, setSubscription] = useState([]);
   const [channel, setChannel] = useState([]);
   const [channelID, setChannelID] = useState([]);
+  const [nextPage, setNextPage] = useState("");
+  const [prePage, setPrePage] = useState("");
 
     const key = process.env.GOOGLE_API_KEY;
 	const data = JSON.parse(localStorage.getItem('SessionToken'));
@@ -28,10 +31,10 @@ const ChannelList = () => {
 			}
 		})
 		setChannel(response2.data.items);
-		console.log("response2", response2.data.items);
+		console.log("response2", response2);
 	}
 
-	const subscriptions = async () => {
+	const subscriptions = async (pageToken) => {
         const response = await YoutubeApi.get('/subscriptions', {
             headers: {
                 'Authorization': `Bearer ${token}`,
@@ -40,11 +43,21 @@ const ChannelList = () => {
             params: {
 				part: 'snippet, contentDetails',
                 mine: true,
-				maxResults: 15,
-                key: key
-
+				maxResults: 4,
+                key: key,
+				pageToken: pageToken
             }
         })
+		if(response.data.nextPageToken){
+			setNextPage(response.data.nextPageToken);
+		}else{
+			setNextPage("");
+		}
+		if(response.data.prevPageToken){
+			setPrePage(response.data.prevPageToken);
+		}else{
+			setPrePage("");	
+		}
 		setSubscription(response.data.items);
 		const id = response.data.items.map((item) => {
 			return item.snippet.resourceId.channelId;
@@ -97,8 +110,29 @@ const ChannelList = () => {
 					})}
 				</Row>
 			</div>
-
-			<Paginate />
+			{/* <nav aria-label="Page navigation example">
+				<ul class="pagination justify-content-center pagination-sm mb-4">
+					{prePage && <li class="page-item"  onClick={()=>{subscriptions(prePage)}}	>Previous</li>}
+					{nextPage && <li class="page-item" onClick={()=>{subscriptions(nextPage)}}>Next</li>}
+					
+				</ul>
+			</nav> */}
+			<nav aria-label="Page navigation example">
+				<ul className="pagination justify-content-center pagination-sm mb-4">
+					
+					{prePage && <li className="page-item"onClick={()=>{subscriptions(prePage)}}>
+						<a className="page-link" href="#">
+							Previous
+						</a>
+					</li>}
+					{nextPage && <li className="page-item" onClick={()=>{subscriptions(nextPage)}}>
+						<a className="page-link" href="#">
+							Next
+						</a>
+					</li>}
+					
+				</ul>
+			</nav>
 		</>
 	);
 };
