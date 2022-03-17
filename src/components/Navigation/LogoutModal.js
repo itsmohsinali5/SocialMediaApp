@@ -28,16 +28,15 @@ function LogoutModal({ show, handleClose, handleLogout }) {
 					{/* <Button variant="secondary" onClick={handleLogout}>
 						logout
 					</Button> */}
-					<GoogleLogout
-					clientId="1003040034096-rs6o9brh3qohqoi7eiaegek5nfecvvhi.apps.googleusercontent.com"
-					buttonText="Logout"
-					onLogoutSuccess={logout}
-					>
-					</GoogleLogout>
-				</Modal.Footer>
-			</Modal>
-		</>
-	);
+          <GoogleLogout
+            clientId="1003040034096-rs6o9brh3qohqoi7eiaegek5nfecvvhi.apps.googleusercontent.com"
+            buttonText="Logout"
+            onLogoutSuccess={logout}
+          ></GoogleLogout>
+        </Modal.Footer>
+      </Modal>
+    </>
+  );
 }
 
 export default LogoutModal;

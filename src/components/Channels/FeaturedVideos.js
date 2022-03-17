@@ -14,9 +14,9 @@ import ReactPlayerCard from "../Atomics/VideoCard/ReactPlayerCard";
 export default function FeaturedVideos() {
 	const [videos, setVideos] = useState([]);
 
-	const key = "AIzaSyAWV93zx2qP8owKRWPLaux9XUWQkhFFMkY";
-	const data = JSON.parse(localStorage.getItem('SessionToken'));
-	const token = data.accessToken;
+  const key = "AIzaSyC9oFDd5Xcu7XMU4-4KbRlH6jcqd1ba0mo";
+  const data = JSON.parse(localStorage.getItem("SessionToken"));
+  const token = data.accessToken;
 
 	const feturedVideos = async () => {
         const response = await YoutubeApi.get('/videos', {

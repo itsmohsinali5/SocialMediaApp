@@ -7,6 +7,7 @@ import ContentWrapper from "../Atomics/ContentWrapper/ContentWrapper";
 import SingleChannelHero from "./SingleChannelHero";
 import SingleChannelNav from "./SingleChannelNav";
 import ChannelVideos from "./ChannelVideos";
+import Paginate from "../Atomics/Paginate/Paginate";
 
 const SingleChannel = () => {
 	return (
@@ -19,9 +20,10 @@ const SingleChannel = () => {
 				</Container>
 			</ContentWrapper>
 
-			<ThinFooter />
-		</>
-	);
+      <ThinFooter />
+
+    </>
+  );
 };
 
 export default SingleChannel;
