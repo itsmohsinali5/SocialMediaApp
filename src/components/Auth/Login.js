@@ -5,14 +5,26 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import GoogleLogin from "react-google-login";
 import { useHistory } from "react-router-dom";
+import Cookie from 'js-cookie';
 
 function Login() {
   const history = useHistory();
 
-  const responseGoogle = (response) => {
-    console.log("Response", response);
-    localStorage.setItem("SessionToken", JSON.stringify(response));
-    if (response.accessToken) {
+  const responseGoogle = async (response) => {
+    const res = await fetch("http://localhost:8080/api/v1/auth/google", {
+      method: "POST",
+      body: JSON.stringify({
+      token: response.tokenId
+      }),
+      headers: {
+        "Content-Type": "application/json"
+      }
+    })
+    const data = await res.json();
+    if(res.status == '201') {
+      // Save the JWT inside a cookie
+      Cookie.set('token', response.accessToken);
+      Cookie.set('user', JSON.stringify(data[0]));
       history.push("/");
     } else {
       history.push("*");

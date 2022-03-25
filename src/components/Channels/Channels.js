@@ -13,8 +13,9 @@ const Channels = () => {
           <hr />
           <FeaturedVideos />
         </Container>
-        <ThinFooter />
       </ContentWrapper>
+      
+      <ThinFooter />
     </>
   );
 };

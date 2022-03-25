@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
 import YoutubeApi from "../../API/YoutubeApi";
+import Cookie from 'js-cookie';
 
 export default function SingleChannelHero({ mychannelInfo }) {
   const [channelsDetail, setChannelsDetail] = useState([]);
 
   const key = process.env.GOOGLE_API_KEY;
-  const data = JSON.parse(localStorage.getItem("SessionToken"));
-  const token = data.accessToken;
+  const token = Cookie.get('token');
 
   const channelsInfo = async () => {
     const response = await YoutubeApi.get("/channels", {

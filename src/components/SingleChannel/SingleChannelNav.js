@@ -11,14 +11,15 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { useHistory } from "react-router-dom";
 import YoutubeApi from "../../API/YoutubeApi";
+import Cookie from 'js-cookie';
 
 export default function SingleChannelNav({ channelName }) {
 
   const [channelsDetail, setChannelsDetail] = useState([]);
 
   const key = process.env.GOOGLE_API_KEY;
-  const data = JSON.parse(localStorage.getItem("SessionToken"));
-  const token = data.accessToken;
+  const token = Cookie.get('token');
+  const history = useHistory();
 
   const channelsInfo = async () => {
     const response = await YoutubeApi.get("/channels", {

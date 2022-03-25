@@ -7,13 +7,13 @@ import YoutubeApi from "../../API/YoutubeApi";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import ReactPlayerCard from "../Atomics/VideoCard/ReactPlayerCard";
+import Cookie from 'js-cookie';
 
 const ChannelVideos = () => {
   let [uploadID, setUploadID] = useState();
   const [videos, SetVideos] = useState([]);
   const key = process.env.GOOGLE_API_KEY;
-  const data = JSON.parse(localStorage.getItem("SessionToken"));
-  const token = data.accessToken;
+  const token = Cookie.get('token');
 
   const subscriptionPlaylist = async (id) => {
     const response2 = await YoutubeApi.get("/playlistItems", {

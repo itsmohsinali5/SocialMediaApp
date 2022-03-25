@@ -7,13 +7,13 @@ import Paginate from "../Atomics/Paginate/Paginate";
 import YoutubeApi from "../../API/YoutubeApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import Cookie from 'js-cookie';
 
 const PlaylistList = () => {
   const [playlist, setPlaylist] = useState([]);
 
   const key = process.env.GOOGLE_API_KEY;
-  const data = JSON.parse(localStorage.getItem("SessionToken"));
-  const token = data.accessToken;
+  const token = Cookie.get('token');
 
   const playList = async () => {
     console.log("Token", token);

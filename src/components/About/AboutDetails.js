@@ -6,15 +6,15 @@ import SectionHeader from "../Atomics/SectionHeader/SectionHeader";
 import Paginate from "../Atomics/Paginate/Paginate";
 import YoutubeApi from "../../API/YoutubeApi";
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link } from "react-router-dom"; 
 import Moment from 'react-moment';
+import Cookie from 'js-cookie';
 
-const AboutDetails = () => {
+const AboutDetails = () => { 
   const [channelsDetail, setChannelsDetail] = useState([]);
 
   const key = process.env.GOOGLE_API_KEY;
-  const data = JSON.parse(localStorage.getItem("SessionToken"));
-  const token = data.accessToken;
+  const token = Cookie.get('token');
 
   const channelsInfo = async (id) => {
     const response = await YoutubeApi.get("/channels", {

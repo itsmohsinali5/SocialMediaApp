@@ -13,6 +13,7 @@ import Dropdown from "react-bootstrap/Dropdown";
 import Badge from "react-bootstrap/Badge";
 
 import LogoutModal from "./LogoutModal";
+import Cookie from 'js-cookie';
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -40,9 +41,8 @@ const Navigation = ({ props }) => {
   const handleShow = () => setShow(true);
 
   useEffect(() => {
-    const data = JSON.parse(localStorage.getItem("SessionToken"));
-    console.log(data);
-    setUserData(data);
+    const data = Cookie.get('user');
+    setUserData(JSON.parse(data));
   }, []);
   const handleLogout = (e) => {
     e.preventDefault();
@@ -148,15 +148,15 @@ const Navigation = ({ props }) => {
               <>
                 <img
                   src={
-                    userData?.profileObj?.imageUrl == ""
+                    userData?.picture == ""
                       ? "img/v4.png"
-                      : userData?.profileObj?.imageUrl
+                      : userData?.picture
                   }
                   alt=""
                 />
                 <span className="d-none d-md-inline">
                   {" "}
-                  {userData?.profileObj?.givenName}
+                  {userData?.name}
                 </span>
               </>
             }

@@ -92,11 +92,11 @@ const Sidebar = ({ props }) => {
 					</Link>
 				</NavDropdown>
 
-				<NavItem
+				{/* <NavItem
 					href="/history"
 					faIcon={faHistory}
 					label="History Page"
-				/>
+				/> */}
 
 				<NavDropdown
 					title={

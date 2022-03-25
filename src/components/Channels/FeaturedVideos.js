@@ -9,15 +9,18 @@ import SectionHeader from "../Atomics/SectionHeader/SectionHeader";
 import VideoCard from "../Atomics/VideoCard/VideoCard";
 import { useEffect, useState } from "react";
 import ReactPlayerCard from "../Atomics/VideoCard/ReactPlayerCard";
+import { BallTriangle } from "react-loader-spinner";
+import Cookie from 'js-cookie';
 
 export default function FeaturedVideos() {
   const [videos, setVideos] = useState([]);
+  const [loading, setLoading] = useState(false);
 
   const key = process.env.REACT_APP_KEY;
-  const data = JSON.parse(localStorage.getItem("SessionToken"));
-  const token = data.accessToken;
+  const token = Cookie.get('token');
 
   const feturedVideos = async () => {
+    setLoading(true);
     const response = await YoutubeApi.get("/videos", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -31,6 +34,7 @@ export default function FeaturedVideos() {
         key: key,
       },
     });
+    setLoading(false);
     setVideos(response.data.items);
     console.log("videos", response.data.items);
   };
@@ -58,6 +62,16 @@ export default function FeaturedVideos() {
         <Row>
           <Col md={12}>
             <SectionHeader heading="Featured Videos" />
+            {loading ? (
+              <div className="pagination justify-content-center pagination-sm mb-4">
+                <BallTriangle
+                  height="100"
+                  width="100"
+                  color="red"
+                  ariaLabel="loading"
+                />
+              </div>
+            ) : null}
           </Col>
 
           {videos.length > 0 &&

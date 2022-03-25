@@ -9,6 +9,8 @@ import ReactPaginate from "react-paginate";
 import "./channelStyle.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { BallTriangle } from "react-loader-spinner";
+import Cookie from "js-cookie";
 
 const ChannelList = () => {
   const [subscription, setSubscription] = useState([]);
@@ -16,10 +18,10 @@ const ChannelList = () => {
   const [channelID, setChannelID] = useState([]);
   const [nextPage, setNextPage] = useState("");
   const [prePage, setPrePage] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const key = process.env.GOOGLE_API_KEY;
-  const data = JSON.parse(localStorage.getItem("SessionToken"));
-  const token = data.accessToken;
+  const token = Cookie.get("token");
 
   const channelsDetail = async (id) => {
     const response2 = await YoutubeApi.get("/channels", {
@@ -38,6 +40,7 @@ const ChannelList = () => {
   };
 
   const subscriptions = async (pageToken) => {
+    setLoading(true);
     const response = await YoutubeApi.get("/subscriptions", {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -52,11 +55,13 @@ const ChannelList = () => {
       },
     });
     if (response.data.nextPageToken) {
+      setLoading(false);
       setNextPage(response.data.nextPageToken);
     } else {
       setNextPage("");
     }
     if (response.data.prevPageToken) {
+      setLoading(false);
       setPrePage(response.data.prevPageToken);
     } else {
       setPrePage("");
@@ -70,6 +75,7 @@ const ChannelList = () => {
   };
 
   useEffect(() => {
+    setLoading(true);
     subscriptions();
   }, []);
 
@@ -89,9 +95,19 @@ const ChannelList = () => {
   return (
     <>
       <div className="video-block section-padding ">
-        <Row>
+        <Row style={{ height: "270px" }}>
           <Col md={12}>
             <SectionHeader heading="Subscriptions" />
+            {loading ? (
+              <div className="pagination justify-content-center pagination-sm mb-4">
+                <BallTriangle
+                  height="100"
+                  width="100"
+                  color="red"
+                  ariaLabel="loading"
+                />
+              </div>
+            ) : null}
           </Col>
           {subscription.length > 0 &&
             subscription.map((item, i) => {
@@ -132,9 +148,8 @@ const ChannelList = () => {
                 subscriptions(prePage);
               }}
             >
-              
               <a className="page-link" href="#">
-              <FontAwesomeIcon icon={faArrowLeft} /> Previous
+                <FontAwesomeIcon icon={faArrowLeft} /> Previous
               </a>
             </li>
           )}

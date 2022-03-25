@@ -2,11 +2,13 @@ import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 import { GoogleLogout } from "react-google-login";
 import { useHistory } from "react-router-dom";
+import Cookie from 'js-cookie';
 
 function LogoutModal({ show, handleClose, handleLogout }) {
   const history = useHistory();
 
   const logout = () => {
+    Cookie.remove('token');
     handleClose();
     history.push("/auth/login");
   };
