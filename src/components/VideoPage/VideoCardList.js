@@ -1,8 +1,11 @@
 import SectionHeader from "../Atomics/SectionHeader/SectionHeader";
+import Moment from 'react-moment';
+
 import {
 	VerifiedTooltip,
 	UnverifiedTooltip,
 } from "../Atomics/CustomCheckTooltips/CustomCheckTooltips";
+
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
@@ -22,6 +25,7 @@ const VideoCardList = ({
 	time,
 	active = null,
 	verified = false,
+	onClick
 }) => {
 	const activeStatus = active
 		? "video-card video-card-list active"
@@ -31,14 +35,14 @@ const VideoCardList = ({
 		: "video-page text-danger-custom";
 	return (
 		<>
-			<div className={activeStatus}>
+			<div className={activeStatus} onClick={onClick}>
 				<div className="video-card-image">
-					<a className="play-icon" href="#">
+					<a className="play-icon" >
 						<FontAwesomeIcon icon={faPlayCircle} />
 					</a>
-					<a href="#">
+					
 						<img className="img-fluid" src={imgSrc} alt={imgAlt} />
-					</a>
+					
 					<div className="time">{time}</div>
 				</div>
 
@@ -50,7 +54,7 @@ const VideoCardList = ({
 					/>
 
 					<div className="video-title">
-						<a href={videoHref}>{videoTitle}</a>
+						<a >{videoTitle}</a>
 					</div>
 					<div className={categoryClass}>
 						{videoCategory}{" "}
@@ -58,7 +62,8 @@ const VideoCardList = ({
 					</div>
 					<div className="video-view">
 						{views} views &nbsp;
-						<FontAwesomeIcon icon={faCalendarAlt} /> {timeAgo} ago
+						<FontAwesomeIcon icon={faCalendarAlt} /> <Moment fromNow date={timeAgo} />
+
 					</div>
 				</div>
 			</div>

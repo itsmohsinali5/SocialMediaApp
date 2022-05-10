@@ -15,6 +15,7 @@ function ChannelCard({
 	verified,
 	isSubscribed,
 	outline = false,
+	deleteSub
 }) {
 	let buttonVariant;
 
@@ -33,8 +34,8 @@ function ChannelCard({
 						<img className="img-fluid" src={imgSrc} alt={imgAlt} />
 					</a>
 					<div className="channels-card-image-btn">
-						<Button variant={buttonVariant}>
-							{buttonText} <strong>{views}</strong>
+						<Button variant={buttonVariant} onClick={deleteSub}>
+							{buttonText} <strong >{views} </strong>
 						</Button>
 					</div>
 				</div>

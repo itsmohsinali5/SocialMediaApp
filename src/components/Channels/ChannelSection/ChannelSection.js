@@ -5,7 +5,6 @@ import ThinFooter from "../Footer/ThinFooter";
 import ContentWrapper from "../Atomics/ContentWrapper/ContentWrapper";
 import SingleChannelHero from "./SingleChannelHero";
 import SingleChannelNav from "./SingleChannelNav";
-import ChannelVideos from "./ChannelVideos";
 import ChannelSectionList from "./ChannelSectionList";
 
 const SingleChannel = () => {

@@ -30,7 +30,7 @@ function LogoutModal({ show, handleClose, handleLogout }) {
 						logout
 					</Button> */}
           <GoogleLogout
-            clientId="872770276912-e6omt6c2nhgnus4ekvnvu2bh22q3h23q.apps.googleusercontent.com"
+            clientId="1003040034096-m3mo8qr6e79u6l5t2a399oo7nakatvqk.apps.googleusercontent.com"
             buttonText="Logout"
             onLogoutSuccess={logout}
           ></GoogleLogout>

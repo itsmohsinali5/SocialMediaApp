@@ -2,10 +2,8 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import SectionHeader from "../Atomics/SectionHeader/SectionHeader";
 import ChannelCard from "../Atomics/ChannelCard/ChannelCard";
-import Paginate from "../Atomics/Paginate/Paginate";
 import YoutubeApi from "../../API/YoutubeApi";
 import { useEffect, useState } from "react";
-import ReactPaginate from "react-paginate";
 import "./channelStyle.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRight, faArrowLeft } from "@fortawesome/free-solid-svg-icons";
@@ -15,7 +13,6 @@ import Cookie from "js-cookie";
 const ChannelList = () => {
   const [subscription, setSubscription] = useState([]);
   const [channel, setChannel] = useState([]);
-  const [channelID, setChannelID] = useState([]);
   const [nextPage, setNextPage] = useState("");
   const [prePage, setPrePage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -54,6 +51,10 @@ const ChannelList = () => {
         pageToken: pageToken,
       },
     });
+    console.log("ressssss", response.data.items);
+    if(response.data.items.length==0){
+      setLoading(false)
+    } 
     if (response.data.nextPageToken) {
       setLoading(false);
       setNextPage(response.data.nextPageToken);
@@ -72,6 +73,18 @@ const ChannelList = () => {
     });
     channelsDetail(id);
     console.log("response", response.data.items);
+  };
+  const subscriptionDelete = async (Id) => {
+    const response3 = await YoutubeApi.delete("/subscriptions", {
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      params: {
+        key: key,
+        id: Id,
+      },
+    });
   };
 
   useEffect(() => {
@@ -107,7 +120,7 @@ const ChannelList = () => {
                   ariaLabel="loading"
                 />
               </div>
-            ) : null}
+            ) : <div >You have not subscribed any channel</div>}
           </Col>
           {subscription.length > 0 &&
             subscription.map((item, i) => {
@@ -123,6 +136,9 @@ const ChannelList = () => {
                         subscriberCount={nFormatter(
                           it.statistics.subscriberCount
                         )}
+                        deleteSub={() => {
+                          subscriptionDelete(item.id);
+                        }}
                         isSubscribed
                       />
                     </Col>
@@ -132,13 +148,7 @@ const ChannelList = () => {
             })}
         </Row>
       </div>
-      {/* <nav aria-label="Page navigation example">
-				<ul class="pagination justify-content-center pagination-sm mb-4">
-					{prePage && <li class="page-item"  onClick={()=>{subscriptions(prePage)}}	>Previous</li>}
-					{nextPage && <li class="page-item" onClick={()=>{subscriptions(nextPage)}}>Next</li>}
-					
-				</ul>
-			</nav> */}
+
       <nav aria-label="Page navigation example">
         <ul className="pagination justify-content-center pagination-sm mb-4">
           {prePage && (
