@@ -7,52 +7,28 @@ import YoutubeApi from "../../API/YoutubeApi";
 import { useEffect, useState } from "react";
 import ReactPlayer from "react-player";
 import ReactPlayerCard from "../Atomics/VideoCard/ReactPlayerCard";
-import Cookie from 'js-cookie';
+import Cookie from "js-cookie";
+import axios from "axios";
 
 const ChannelVideos = () => {
   let [uploadID, setUploadID] = useState();
   const [videos, SetVideos] = useState([]);
   const key = process.env.GOOGLE_API_KEY;
-  const token = Cookie.get('token');
+  const token = Cookie.get("token");
 
-  const subscriptionPlaylist = async (id) => {
-    const response2 = await YoutubeApi.get("/playlistItems", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      params: {
-        part: "snippet,contentDetails",
-        playlistId: id.join(""),
-        key: key,
-      },
-    });
-    console.log("response", response2);
-    SetVideos(response2.data.items);
-  };
-
-  const subscriptionChannel = async () => {
-    const response = await YoutubeApi.get("/channels", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      params: {
-        part: "contentDetails",
-        mine: true,
-        maxResults: 10,
-        key: key,
-      },
-    });
-    console.log("res1", response.data.items);
-    const id = response.data.items.map((id) => {
-      return id.contentDetails.relatedPlaylists.uploads;
-    });
-    subscriptionPlaylist(id);
+  const channelVideoList = async () => {
+    const response4 = await axios
+      .get(
+        `http://localhost:8080/youtube/api/my-channel-videos?key=${key}&token=${token}`
+      )
+      .then((response) => {
+        console.log("ascakjm", response);
+        SetVideos(response.data);
+      });
   };
 
   useEffect(() => {
-    subscriptionChannel();
+    channelVideoList();
   }, []);
 
   return (

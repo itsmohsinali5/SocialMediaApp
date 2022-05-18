@@ -52,9 +52,9 @@ const ChannelList = () => {
       },
     });
     console.log("ressssss", response.data.items);
-    if(response.data.items.length==0){
-      setLoading(false)
-    } 
+    if (response.data.items.length == 0) {
+      setLoading(false);
+    }
     if (response.data.nextPageToken) {
       setLoading(false);
       setNextPage(response.data.nextPageToken);
@@ -120,7 +120,9 @@ const ChannelList = () => {
                   ariaLabel="loading"
                 />
               </div>
-            ) : <div >You have not subscribed any channel</div>}
+            ) : (
+              <div>You have not subscribed any channel</div>
+            )}
           </Col>
           {subscription.length > 0 &&
             subscription.map((item, i) => {

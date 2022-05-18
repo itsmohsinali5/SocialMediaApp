@@ -6,55 +6,68 @@ import Col from "react-bootstrap/Col";
 import Cookie from "js-cookie";
 import ThinFooter from "../Footer/ThinFooter";
 import ContentWrapper from "../Atomics/ContentWrapper/ContentWrapper";
-
 import VideoCardList from "../VideoPage/VideoCardList";
 import SingleVideoRight from "./SingleVideoRight";
 import SingleVideoLeft from "./SingleVideoLeft";
 import { useEffect, useState } from "react";
 import YoutubeApi from "../../API/YoutubeApi";
-
+import axios from "axios";
 const PlaylistVideoPage = () => {
-  const [video, setVideo] = useState("");
+  const [video, setVideo] = useState([]);
   const [videoId, setVideoId] = useState();
   const [playlistItem, setPlaylistItem] = useState([]);
   const key = "AIzaSyArZ0Te01G66wvhBnneyPYwTx2iWvSkz2Y";
   const token = Cookie.get("token");
   const location = useLocation();
+  const [playlistvideo, setPlayListvideo] = useState([]);
 
-  const comments = async (id) => {
-    console.log("key",key)
-    const responseComment = await YoutubeApi.get("/commentThreads", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      params: {
-        part: "snippet",
-        textFormat:"html",
-        videoId: id,
-        key: key,
-      },
-    });
-    setVideoId(responseComment);
-    console.log("ressssponse", responseComment);
+  // const comments = async (id) => {
+  //   console.log("key", key);
+  //   const responseComment = await YoutubeApi.get("/commentThreads", {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //     params: {
+  //       part: "snippet",
+  //       textFormat: "html",
+  //       videoId: id,
+  //       key: key,
+  //     },
+  //   });
+  //   setVideoId(responseComment);
+  //   console.log("ressssponse", responseComment);
+  // };
+
+  const playlistVideos = async () => {
+    const response4 = await axios
+      .get(
+        `http://localhost:8080/youtube/api/playlist-videos?playlistId=${location.state.detail}&token=${token}`
+      )
+      .then((response) => {
+        setPlaylistItem(response.data);
+        setVideo(response.data[0].contentDetails.videoId);
+
+        console.log("asdasdasdassssss", response.data);
+      });
   };
 
-  const playList = async () => {
-    console.log("Token", token);
-    const response = await YoutubeApi.get("/playlistItems", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      params: {
-        part: "snippet, contentDetails, id",
-        playlistId: location.state.detail,
-      },
-    });
-    setPlaylistItem(response.data.items);
-    setVideo(response.data.items[0].contentDetails.videoId);
-    comments(response.data.items[0].contentDetails.videoId);
-  };
+  // const playList = async () => {
+  //   console.log("Token", token);
+  //   const response = await YoutubeApi.get("/playlistItems", {
+  //     headers: {
+  //       Authorization: `Bearer ${token}`,
+  //       "Content-Type": "application/json",
+  //     },
+  //     params: {
+  //       part: "snippet, contentDetails, id",
+  //       playlistId: location.state.detail,
+  //     },
+  //   });
+  //   setPlaylistItem(response.data.items);
+  //   setVideo(response.data.items[0].contentDetails.videoId);
+  //   // comments(response.data.items[0].contentDetails.videoId);
+  // };
 
   const displayVideo = (e) => {
     setVideo(e);
@@ -62,7 +75,7 @@ const PlaylistVideoPage = () => {
   };
 
   useEffect(() => {
-    playList();
+    playlistVideos();
   }, []);
   //   function nFormatter(num) {
   //     if (num >= 1000000000) {

@@ -10,14 +10,14 @@ import VideoCard from "../Atomics/VideoCard/VideoCard";
 import { useEffect, useState } from "react";
 import ReactPlayerCard from "../Atomics/VideoCard/ReactPlayerCard";
 import { BallTriangle } from "react-loader-spinner";
-import Cookie from 'js-cookie';
+import Cookie from "js-cookie";
 
 export default function FeaturedVideos() {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const key = process.env.REACT_APP_KEY;
-  const token = Cookie.get('token');
+  const token = Cookie.get("token");
 
   const feturedVideos = async () => {
     setLoading(true);
