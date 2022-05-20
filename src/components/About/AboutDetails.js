@@ -21,12 +21,12 @@ const AboutDetails = () => {
   const channelsInfo = async (id) => {
     const response = await axios
       .get(
-        `${YOUTUBE_API_BASE_URL}/youtube/api/creator-about?key=${key}&token=${token}`
+        `http://localhost:8080/youtube/api/creator-about?key=${key}&token=${token}`
       )
       .then((response) => setChannelsDetail(response.data));
   };
 
-  // const channelsInfo = async (id) => {
+  // const channelsInfo = async (id){
   //   const response = await YoutubeApi.get("/channels", {
   //     headers: {
   //       Authorization: `Bearer ${token}`,
