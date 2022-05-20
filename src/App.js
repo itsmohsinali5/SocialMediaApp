@@ -30,6 +30,7 @@ import Playlist from "./components/Playlist/Playlist";
 import PlaylistVideoPage from "./components/PlaylistVideos/Playlistvideos";
 import ChannelVideos from "./components/SingleChannel/ChannelVideos";
 import About from "./components/About/About";
+import YoutubeAnalyticsReport from "./components/YoutubeAnalytics/YoutubeAnalyticsReport";
 
 function App() {
   const [showMenu, setShowMenu] = useState(false);
@@ -120,6 +121,9 @@ function Content(props) {
             </Route>
             <Route exact path="/about">
               <About />
+            </Route>
+            <Route exact path="/youtube-analytics">
+              <YoutubeAnalyticsReport />
             </Route>
             <Route path="*" component={FourZeroFour} />
           </Switch>
