@@ -11,36 +11,30 @@ import { useEffect, useState } from "react";
 import ReactPlayerCard from "../Atomics/VideoCard/ReactPlayerCard";
 import { BallTriangle } from "react-loader-spinner";
 import Cookie from "js-cookie";
+import axios from "axios";
 
-export default function FeaturedVideos() {
+const FeaturedVideos = () => {
   const [videos, setVideos] = useState([]);
   const [loading, setLoading] = useState(false);
 
   const key = process.env.REACT_APP_KEY;
   const token = Cookie.get("token");
 
-  const feturedVideos = async () => {
+  const featuredVideoList = async () => {
     setLoading(true);
-    const response = await YoutubeApi.get("/videos", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      params: {
-        part: "snippet, contentDetails, statistics",
-        chart: "mostPopular",
-        regionCode: "PK",
-        maxResults: 8,
-        key: key,
-      },
-    });
+    const response4 = await axios
+      .get(
+        `http://localhost:8080/youtube/api/featured-videos?key=${key}&token=${token}`
+      )
+      .then((response) => {
+        console.log("ascakjm", response);
+        setVideos(response.data);
+      });
     setLoading(false);
-    setVideos(response.data.items);
-    console.log("videos", response.data.items);
   };
 
   useEffect(() => {
-    feturedVideos();
+    featuredVideoList();
   }, []);
 
   function nFormatter(num) {
@@ -92,4 +86,6 @@ export default function FeaturedVideos() {
       </div>
     </>
   );
-}
+};
+
+export default FeaturedVideos;
