@@ -12,42 +12,26 @@ import axios from "axios";
 
 const PlaylistList = () => {
   const [playlist, setPlaylist] = useState([]);
+  const [loading, setLoading] = useState([]);
   let history = useHistory();
   const key = process.env.GOOGLE_API_KEY;
   const token = Cookie.get("token");
 
-  // const playList = async () => {
-  //   console.log("Token", token);
-  //   const response = await YoutubeApi.get("/playlists", {
-  //     headers: {
-  //       Authorization: `Bearer ${token}`,
-  //       "Content-Type": "application/json",
-  //     },
-  //     params: {
-  //       mine: true,
-  //       key: key,
-  //       part: "snippet, contentDetails, id",
-  //     },
-  //   });
-  //   setPlaylist(response.data.items);
-  //   console.log("data", response);
-  //   console.log("response2", response.data.items);
-  // };
-
-  // useEffect(() => {
-  //   playList();
-  // }, []);
-
-  const playList = async () => {
+  const Playlist = async () => {
+    setLoading(true);
     const response4 = await axios
       .get(
-        `http://localhost:8080/youtube/playlist-list?key=${key}&token=${token}`
+        `http://localhost:8080/youtube/api/playlist-list?key=${key}&token=${token}`
       )
-      .then((response) => setPlaylist(response));
+      .then((response) => {
+        console.log("ascakjm", response);
+        setPlaylist(response.data);
+      });
+    setLoading(false);
   };
 
   useEffect(() => {
-    playList();
+    Playlist();
   }, []);
 
   return (
