@@ -8,36 +8,32 @@ import YoutubeApi from "../../API/YoutubeApi";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Cookie from "js-cookie";
+import axios from "axios";
 
 const PlaylistList = () => {
   const [playlist, setPlaylist] = useState([]);
+  const [loading, setLoading] = useState([]);
   let history = useHistory();
   const key = process.env.GOOGLE_API_KEY;
   const token = Cookie.get("token");
 
-  const playList = async () => {
-    console.log("Token", token);
-    const response = await YoutubeApi.get("/playlists", {
-      headers: {
-        Authorization: `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      params: {
-        mine: true,
-        key: key,
-        part: "snippet, contentDetails, id",
-      },
-    });
-    setPlaylist(response.data.items);
-    console.log("data", response);
-    console.log("response2", response.data.items);
+  const Playlist = async () => {
+    setLoading(true);
+    const response4 = await axios
+      .get(
+        `http://localhost:8080/youtube/api/playlist-list?key=${key}&token=${token}`
+      )
+      .then((response) => {
+        console.log("ascakjm", response);
+        setPlaylist(response.data);
+      });
+    setLoading(false);
   };
 
-  
-
   useEffect(() => {
-    playList();
+    Playlist();
   }, []);
+
   return (
     <>
       <div className="video-block section-padding ">
@@ -48,20 +44,23 @@ const PlaylistList = () => {
 
           {playlist.length > 0 &&
             playlist.map((item) => (
-              <Col xl={3} sm={6} className="mb-3" onClick={()=> {
-                history.push({
-                  pathname: '/playlistvideos',
-                  state: { detail: item.id }
-              });
-              }}>
-
+              <Col
+                xl={3}
+                sm={6}
+                className="mb-3"
+                onClick={() => {
+                  history.push({
+                    pathname: "/playlistvideos",
+                    state: { detail: item.id },
+                  });
+                }}
+              >
                 <PlayList
                   playlistThumbnail={item.snippet.thumbnails.default.url}
                   playlistTitle={item.snippet.title}
                   videoCount={item.contentDetails.itemCount}
                   playlistId={item.id}
                 />
-
               </Col>
             ))}
         </Row>

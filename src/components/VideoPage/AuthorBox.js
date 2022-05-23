@@ -7,14 +7,14 @@ import { faBell } from "@fortawesome/free-solid-svg-icons";
 import YoutubeAnalyticsReport from "../YoutubeAnalytics/YoutubeAnalyticsReport";
 
 export default function AuthorBox({
-	subscriberCount,
-	imgAlt = "",
-	imgSrc,
-	isSubscribed = false,
-	channelHref = "#",
-	channelName,
-	verified = null,
-	publishedOn,
+  subscriberCount,
+  imgAlt = "",
+  imgSrc,
+  isSubscribed = false,
+  channelHref = "#",
+  channelName,
+  verified = null,
+  publishedOn,
 }) {
 	return (
 		<><YoutubeAnalyticsReport />

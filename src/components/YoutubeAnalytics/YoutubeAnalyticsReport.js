@@ -1,6 +1,5 @@
-import React from "react";
-import { useState, useEffect } from "react";
-import Cookie from "js-cookie";
+import React, { useState } from "react";
+import { Bar } from "react-chartjs-2";
 import axios from "axios";
 import { Bar, Line } from "react-chartjs-2";
 import {
@@ -99,6 +98,4 @@ const YoutubeAnalyticsReport = () => {
       <p>{}</p>
     </div>
   );
-};
-
-export default YoutubeAnalyticsReport;
+}
