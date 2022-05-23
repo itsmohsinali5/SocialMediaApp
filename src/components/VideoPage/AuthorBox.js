@@ -4,6 +4,7 @@ import { VerifiedTooltip } from "../Atomics/CustomCheckTooltips/CustomCheckToolt
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBell } from "@fortawesome/free-solid-svg-icons";
+import YoutubeAnalyticsReport from "../YoutubeAnalytics/YoutubeAnalyticsReport";
 
 export default function AuthorBox({
 	subscriberCount,
@@ -16,7 +17,7 @@ export default function AuthorBox({
 	publishedOn,
 }) {
 	return (
-		<>
+		<><YoutubeAnalyticsReport />
 			<div className="single-video-author box mb-3">
 				<div className="float-right">
 					<Button variant="danger">
