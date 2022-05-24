@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import Cookie from "js-cookie";
+import CountUp from "react-countup";
 import axios from "axios";
-import { Bar, Line } from "react-chartjs-2";
+import {  Line } from "react-chartjs-2";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -35,10 +36,14 @@ const YoutubeAnalyticsReport = () => {
   let viewsArray = [];
   let commentsArray = [];
   let dateArray = [];
+  let likesArray = [];
+  let dislikesArray = [];
+  let estimatedMinutesWatchedArray = [];
   const [chart, setChart] = useState();
-  const [date, setDate] = useState([]);
-  const [comments, setComments] = useState([]);
   const [totalViews, setTotalViews] = useState("");
+  const [totalLikes, setTotalLikes] = useState("");
+  const [totalDisLikes, setTotalDisLikes] = useState("");
+  const [estimatedMinutesWatched, setEstimatedMinutesWatched] = useState("");
   const [totalComments, setTotalComments] = useState("");
   const youtubeAnalytics = async () => {
     const response = await axios
@@ -50,14 +55,16 @@ const YoutubeAnalyticsReport = () => {
         for (let i = 0; i < response.data.rows.length; i++) {
           viewsArray.push(response.data.rows[i][1]);
           commentsArray.push(response.data.rows[i][2]);
-          setComments(response.data.rows[i][2]);
           dateArray.push(response.data.rows[i][0]);
+          likesArray.push(response.data.rows[i][3]);
+          dislikesArray.push(response.data.rows[i][4]);
+          estimatedMinutesWatchedArray.push(response.data.rows[i][5]);
         }
         setChart({
-          labels: dateArray,
+          labels: dateArray ? dateArray : "",
           datasets: [
             {
-              label: "Comment ",
+              label: "Views ",
               data: viewsArray,
               backgroundColor: "white",
               borderColor: "Red",
@@ -81,14 +88,23 @@ const YoutubeAnalyticsReport = () => {
       (previousScore, currentScore) => previousScore + currentScore
     );
     setTotalComments(totalComment);
+    const totalLike = likesArray.reduce(
+      (previousScore, currentScore) => previousScore + currentScore
+    );
+    setTotalLikes(totalLike);
+    const totalDisLike = dislikesArray.reduce(
+      (previousScore, currentScore) => previousScore + currentScore
+    );
+    setTotalDisLikes(totalDisLike);
+    const estimatedWatchTime = estimatedMinutesWatchedArray.reduce(
+      (previousScore, currentScore) => previousScore + currentScore
+    );
+    setEstimatedMinutesWatched(estimatedWatchTime);
+  
   };
 
   useEffect(() => {
     youtubeAnalytics();
-    console.log(viewsArray, "views");
-    console.log(commentsArray, "comments");
-    console.log("date", dateArray);
-    console.log("comments", commentsArray);
   }, []);
 
   return (
@@ -97,8 +113,17 @@ const YoutubeAnalyticsReport = () => {
         <Container fluid className="upload-details">
           <Row>
             <Col lg={12}>
-              <p>{totalViews}</p>
-              <p>{totalComments}</p>
+              <p>total Views</p>
+              <CountUp end={totalViews} duration={3} />
+              <p>total comments</p>
+              <CountUp end={totalComments} duration={3} />
+              <p>total likes</p>
+              <CountUp end={totalLikes} duration={3} />
+              <p>total dislikes</p>
+              <CountUp end={totalDisLikes} duration={3} />
+              <p>total estimated time watched</p>
+              <CountUp end={estimatedMinutesWatched} duration={3} />
+             
               <div style={{ width: "800px", height: "800px" }}>
                 {chart && <Line data={chart} />}
               </div>
