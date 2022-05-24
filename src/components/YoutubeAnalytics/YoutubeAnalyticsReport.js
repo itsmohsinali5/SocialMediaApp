@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import Cookie from "js-cookie";
 import CountUp from "react-countup";
 import axios from "axios";
-import {  Line } from "react-chartjs-2";
+import { Line } from "react-chartjs-2";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
@@ -100,7 +100,6 @@ const YoutubeAnalyticsReport = () => {
       (previousScore, currentScore) => previousScore + currentScore
     );
     setEstimatedMinutesWatched(estimatedWatchTime);
-  
   };
 
   useEffect(() => {
@@ -112,23 +111,34 @@ const YoutubeAnalyticsReport = () => {
       <ContentWrapper>
         <Container fluid className="upload-details">
           <Row>
-            <Col lg={12}>
-              <p>total Views</p>
+            <Col lg={2}>
+              <h6>Total Views</h6>
+            </Col>
+            <Col lg={2}>
               <CountUp end={totalViews} duration={3} />
-              <p>total comments</p>
+            </Col>
+            <Col lg={2}>
+              <h6>Total comments</h6>
               <CountUp end={totalComments} duration={3} />
-              <p>total likes</p>
+            </Col>
+            <Col lg={2}>
+              <h6>Total likes</h6>
               <CountUp end={totalLikes} duration={3} />
-              <p>total dislikes</p>
+            </Col>
+            <Col lg={2}>
+              <h6>Total dislikes</h6>
               <CountUp end={totalDisLikes} duration={3} />
-              <p>total estimated time watched</p>
+            </Col>
+            <Col lg={2}>
+              <h6>Total estimated time watched</h6>
               <CountUp end={estimatedMinutesWatched} duration={3} />
-             
+            </Col>
+            <Col lg={12}>
               <div style={{ width: "800px", height: "800px" }}>
                 {chart && <Line data={chart} />}
               </div>
 
-              <p>{}</p>
+              <h5>{}</h5>
             </Col>
           </Row>
         </Container>

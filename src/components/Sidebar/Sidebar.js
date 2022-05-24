@@ -12,6 +12,7 @@ import {
   faHome,
   faUsers,
   faUserAlt,
+  faChartLine,
   faVideo,
   faCloudUploadAlt,
   faFolder,
@@ -31,7 +32,7 @@ const Sidebar = ({ props }) => {
         <NavItem href="/channels" faIcon={faUsers} label="Subscriptions" />
         <NavItem
           href="/youtubeAnalytics"
-          faIcon={faUsers}
+          faIcon={faChartLine}
           label="YoutubeAnalytics"
         />
 

@@ -85,6 +85,27 @@ const ChannelList = () => {
         console.log("resiiiig", response);
         setSubscription(response.data);
       });
+    // if (response4.data.items.length == 0) {
+    //   setLoading(false);
+    // }
+    // if (response4.data.nextPageToken) {
+    //   setLoading(false);
+    //   setNextPage(response4.data.nextPageToken);
+    // } else {
+    //   setNextPage("");
+    // }
+    // if (response4.data.prevPageToken) {
+    //   setLoading(false);
+    //   setPrePage(response4.data.prevPageToken);
+    // } else {
+    //   setPrePage("");
+    // }
+    // setSubscription(response4.data.items);
+    // const id = response4.data.items.map((item) => {
+    //   return item.snippet.resourceId.channelId;
+    // });
+    // // channelsDetail(id);
+    // console.log("response", response4.data.items);
   };
 
   // const subscriptionDelete = async (Id) => {
@@ -170,9 +191,9 @@ const ChannelList = () => {
           {prePage && (
             <li
               className="page-item"
-              // onClick={() => {
-              //   subscriptions(prePage);
-              // }}
+              onClick={() => {
+                subscriptionList(prePage);
+              }}
             >
               <a className="page-link" href="#">
                 <FontAwesomeIcon icon={faArrowLeft} /> Previous
@@ -182,9 +203,9 @@ const ChannelList = () => {
           {nextPage && (
             <li
               className="page-item"
-              // onClick={() => {
-              //   subscriptions(nextPage);
-              // }}
+              onClick={() => {
+                subscriptionList(nextPage);
+              }}
             >
               <a className="page-link" href="#">
                 Next <FontAwesomeIcon icon={faArrowRight} />
