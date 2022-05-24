@@ -1,4 +1,4 @@
 node_modules
 build
-src/components/Auth/Login.js
-src/components/Navigation/LogoutModal.js
+# src/components/Auth/Login.js
+# src/components/Navigation/LogoutModal.js

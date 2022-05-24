@@ -2,6 +2,10 @@ import { useEffect, useState } from "react";
 import Cookie from "js-cookie";
 import axios from "axios";
 import { Bar, Line } from "react-chartjs-2";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Col from "react-bootstrap/Col";
+import ContentWrapper from "../Atomics/ContentWrapper/ContentWrapper";
 import {
   Chart as ChartJS,
   Title,
@@ -88,15 +92,23 @@ const YoutubeAnalyticsReport = () => {
   }, []);
 
   return (
-    <div>
-      <p>{totalViews}</p>
-      <p>{totalComments}</p>
-      <div style={{ width: "800px", height: "800px" }}>
-        {chart && <Line data={chart} />}
-      </div>
+    <>
+      <ContentWrapper>
+        <Container fluid className="upload-details">
+          <Row>
+            <Col lg={12}>
+              <p>{totalViews}</p>
+              <p>{totalComments}</p>
+              <div style={{ width: "800px", height: "800px" }}>
+                {chart && <Line data={chart} />}
+              </div>
 
-      <p>{}</p>
-    </div>
+              <p>{}</p>
+            </Col>
+          </Row>
+        </Container>
+      </ContentWrapper>
+    </>
   );
-}
+};
 export default YoutubeAnalyticsReport;

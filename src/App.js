@@ -77,6 +77,9 @@ function Content(props) {
             <Route exact path="/video-page">
               <VideoPage />
             </Route>
+            <Route exact path="/youtubeAnalytics">
+              <YoutubeAnalyticsReport />
+            </Route>
             <Route exact path="/upload-video">
               <UploadVideo />
             </Route>
