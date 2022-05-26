@@ -16,8 +16,10 @@ function SampleNextArrow(props) {
       style={{
         ...style,
         display: "block",
-        background: "black",
+        background: "#be5fb7",
         borderRadius: "1rem",
+        padding: "1px 0px 1px 0px",
+        marginTop: "-50px",
       }}
       onClick={onClick}
     />
@@ -32,8 +34,10 @@ function SamplePrevArrow(props) {
       style={{
         ...style,
         display: "block",
-        background: "black",
+        background: "#be5fb7",
         borderRadius: "1rem",
+        padding: "1px 0px 1px 0px",
+        marginTop: "-50px",
       }}
       onClick={onClick}
     />
@@ -77,27 +81,50 @@ const TopCategoriesSlider = () => {
     infinite: true,
     slidesToShow: 3,
     slidesToScroll: 1,
+    className: "center",
+    responsive: [
+      {
+        breakpoint: 1024,
+        settings: {
+          slidesToShow: 3,
+          slidesToScroll: 3,
+          infinite: true,
+          dots: true,
+        },
+      },
+      {
+        breakpoint: 600,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 2,
+          initialSlide: 2,
+        },
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
     nextArrow: <SampleNextArrow />,
     prevArrow: <SamplePrevArrow />,
   };
   return (
-    <div>
-      <h3> Channel Videos </h3>
-
-      <Slider {...settings}>
-        {videos.length > 0 &&
-          videos.map((item) => {
-            return (
-              <ReactPlayerCard
-                videoUrl={`https://www.youtube.com/watch?v=${item.contentDetails.videoId}`}
-                videoTitle={item.snippet.title}
-                channelTitle={item.snippet.channelTitle}
-                publishedAt={item.snippet.publishedAt}
-              />
-            );
-          })}
-      </Slider>
-    </div>
+    <Slider {...settings}>
+      {videos.length > 0 &&
+        videos.map((item) => {
+          return (
+            <ReactPlayerCard
+              videoUrl={`https://www.youtube.com/watch?v=${item.contentDetails.videoId}`}
+              videoTitle={item.snippet.title}
+              channelTitle={item.snippet.channelTitle}
+              publishedAt={item.snippet.publishedAt}
+            />
+          );
+        })}
+    </Slider>
   );
 };
 export default TopCategoriesSlider;

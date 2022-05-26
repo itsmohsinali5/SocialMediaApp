@@ -16,11 +16,10 @@ const Homepage = () => {
       <ContentWrapper>
         <Container fluid className="pb-0">
           <TopMobileSearch />
-          {/* <YoutubeAnalyticsReport /> */}
           <TopCategory />
 
           <hr />
-          
+
           <FeaturedVideos />
 
           <hr className="mt-0" />

@@ -7,6 +7,9 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import ContentWrapper from "../Atomics/ContentWrapper/ContentWrapper";
+import { BallTriangle } from "react-loader-spinner";
+import SectionHeader from "../Atomics/SectionHeader/SectionHeader";
+
 import {
   Chart as ChartJS,
   Title,
@@ -33,6 +36,7 @@ const YoutubeAnalyticsReport = () => {
   const key = process.env.GOOGLE_API_KEY;
   const token = Cookie.get("token");
   const [analytics, setAnalytics] = useState([]);
+  const [loading, setLoading] = useState(false);
   let viewsArray = [];
   let commentsArray = [];
   let dateArray = [];
@@ -46,12 +50,13 @@ const YoutubeAnalyticsReport = () => {
   const [estimatedMinutesWatched, setEstimatedMinutesWatched] = useState("");
   const [totalComments, setTotalComments] = useState("");
   const youtubeAnalytics = async () => {
+    setLoading(true);
     const response = await axios
       .get(
         `http://localhost:8080/youtube/api/channel-analytics?key=${key}&token=${token}`
       )
       .then((response) => {
-        console.log("nhljcanc", response.data.rows);
+        console.log("nhljcanc", response);
         for (let i = 0; i < response.data.rows.length; i++) {
           viewsArray.push(response.data.rows[i][1]);
           commentsArray.push(response.data.rows[i][2]);
@@ -77,6 +82,7 @@ const YoutubeAnalyticsReport = () => {
             },
           ],
         });
+
         console.log("dateArray: ", dateArray);
       });
 
@@ -100,6 +106,7 @@ const YoutubeAnalyticsReport = () => {
       (previousScore, currentScore) => previousScore + currentScore
     );
     setEstimatedMinutesWatched(estimatedWatchTime);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -110,28 +117,70 @@ const YoutubeAnalyticsReport = () => {
     <>
       <ContentWrapper>
         <Container fluid className="upload-details">
+          <Col md={12}>
+            <SectionHeader heading="Featured Videos" />
+            {loading ? (
+              <div className="pagination justify-content-center pagination-sm mb-4">
+                <BallTriangle
+                  height="100"
+                  width="100"
+                  color="red"
+                  ariaLabel="loading"
+                />
+              </div>
+            ) : null}
+          </Col>
           <Row>
             <Col lg={2}>
-              <h6>Total Views</h6>
+              <h6 style={{ color: "#be5fb7", textAlign: "center" }}>
+                Total Views
+              </h6>
+              <CountUp
+                style={{ display: "flex", justifyContent: "space-around" }}
+                end={totalViews}
+                duration={3}
+              />
+            </Col>
+            {/* <Col lg={2}></Col> */}
+            <Col lg={2}>
+              <h6 style={{ color: "#be5fb7", textAlign: "center" }}>
+                Total comments
+              </h6>
+              <CountUp
+                style={{ display: "flex", justifyContent: "space-around" }}
+                end={totalComments}
+                duration={3}
+              />
             </Col>
             <Col lg={2}>
-              <CountUp end={totalViews} duration={3} />
+              <h6 style={{ color: "#be5fb7", textAlign: "center" }}>
+                Total likes
+              </h6>
+              <CountUp
+                style={{ display: "flex", justifyContent: "space-around" }}
+                end={totalLikes}
+                duration={3}
+              />
             </Col>
             <Col lg={2}>
-              <h6>Total comments</h6>
-              <CountUp end={totalComments} duration={3} />
+              <h6 style={{ color: "#be5fb7", textAlign: "center" }}>
+                Total dislikes
+              </h6>
+              <CountUp
+                style={{ display: "flex", justifyContent: "space-around" }}
+                end={totalDisLikes}
+                duration={3}
+              />
             </Col>
-            <Col lg={2}>
-              <h6>Total likes</h6>
-              <CountUp end={totalLikes} duration={3} />
-            </Col>
-            <Col lg={2}>
-              <h6>Total dislikes</h6>
-              <CountUp end={totalDisLikes} duration={3} />
-            </Col>
-            <Col lg={2}>
-              <h6>Total estimated time watched</h6>
-              <CountUp end={estimatedMinutesWatched} duration={3} />
+            <Col lg={3}>
+              <h6 style={{ color: "#be5fb7", textAlign: "center" }}>
+                Total estimated time watched{" "}
+              </h6>
+              <CountUp
+                style={{ display: "flex", justifyContent: "space-around" }}
+                end={estimatedMinutesWatched}
+                duration={3}
+              />
             </Col>
             <Col lg={12}>
               <div style={{ width: "800px", height: "800px" }}>
