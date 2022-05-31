@@ -1,12 +1,11 @@
 import { Link } from "react-router-dom";
 import "./Sidebar.css";
-
+import classNames from "classnames";
 import Dropdown from "react-bootstrap/Dropdown";
 import NavDropdown from "react-bootstrap/NavDropdown";
-
+import React, { useState } from "react";
 import ChannelSidebarList from "./ChannelSidebarList";
 import NavItem from "./NavItem";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faHome,
@@ -24,28 +23,31 @@ const Sidebar = ({ props }) => {
   const sidebarClass = props.showMenu
     ? "sidebar navbar-nav toggled"
     : "sidebar navbar-nav";
-
+   
   return (
     <>
       <ul className={sidebarClass}>
-        <NavItem href="/" faIcon={faHome} label="Home" active />
-        <NavItem href="/channels" faIcon={faUsers} label="Subscriptions" />
+        <NavItem   href="/" faIcon={faHome}  label="Home" />
+        <NavItem href="/channels" faIcon={faUsers}   label="Subscriptions"  />
         <NavItem
           href="/youtubeAnalytics"
           faIcon={faChartLine}
           label="YoutubeAnalytics"
+          
         />
 
         <NavItem
           href="/single-channel"
           faIcon={faUserAlt}
           label="Single Channel"
+          
         />
         <NavItem href="/video-page" faIcon={faVideo} label="Video Page" />
         <NavItem
           href="/upload-video"
           faIcon={faCloudUploadAlt}
           label="Upload Video"
+          
         />
 
         <NavDropdown

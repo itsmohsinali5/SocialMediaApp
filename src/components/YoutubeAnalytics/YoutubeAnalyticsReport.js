@@ -182,7 +182,8 @@ const YoutubeAnalyticsReport = () => {
                 duration={3}
               />
             </Col>
-            <Col lg={12}>
+
+            <Col lg={12} style={{ display: "flex", justifyContent: "center" }}>
               <div style={{ width: "800px", height: "800px" }}>
                 {chart && <Line data={chart} />}
               </div>
